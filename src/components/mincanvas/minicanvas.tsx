@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { OrbitControls, Stats } from '@react-three/drei'
-import { Canvas } from '@react-three/fiber'
+import { Canvas, Vector3 } from '@react-three/fiber'
 import gsap from 'gsap'
 import { Leva, useControls } from 'leva'
 import { Perf } from 'r3f-perf'
@@ -26,7 +26,7 @@ export default function CanvasWithModel({
   maxZoom?: number
   minZoom?: number
   initZoom?: number
-  cameraPosition?: number[]
+  cameraPosition?: Vector3
   children: ReactNode
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
