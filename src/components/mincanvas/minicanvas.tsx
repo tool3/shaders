@@ -12,20 +12,28 @@ import Debug from '../debug/debug'
 
 export default function CanvasWithModel({
   className,
+  orbitEnabled = true,
+  panel = false,
   maxZoom = 300,
   minZoom = 10,
+  initZoom = 50,
+  cameraPosition = [0, 0, 100],
   children
 }: {
   className?: string
+  orbitEnabled?: boolean
+  panel?: boolean
   maxZoom?: number
   minZoom?: number
+  initZoom?: number
+  cameraPosition?: number[]
   children: ReactNode
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const target = useRef([0, 0, 0]) as any
-  const [active, setActive] = useState(false)
+  const [active, setActive] = useState(panel)
   const { isMobile, isTablet } = useDeviceDetect()
-  const zoom = isMobile && !isTablet ? 13 : 30
+  const zoom = isMobile && !isTablet ? 13 : initZoom
 
   const { fps } = useControls({
     fps: false
@@ -53,7 +61,7 @@ export default function CanvasWithModel({
         camera={{
           frustumCulled: true,
           fov: 50,
-          position: [0, 0, 50],
+          position: cameraPosition,
           zoom
         }}
         gl={{
@@ -61,6 +69,10 @@ export default function CanvasWithModel({
           alpha: false,
           premultipliedAlpha: false,
           powerPreference: 'high-performance'
+        }}
+        style={{
+          height: '100svh',
+          width: '100vw'
         }}
       >
         {fps ? <Perf position="bottom-left" logsPerSecond={1} /> : null}
@@ -70,6 +82,7 @@ export default function CanvasWithModel({
         <OrbitControls
           ref={target}
           makeDefault
+          enabled={orbitEnabled}
           minZoom={minZoom}
           maxZoom={maxZoom}
           maxDistance={100}
