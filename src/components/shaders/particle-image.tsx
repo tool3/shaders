@@ -133,6 +133,7 @@ export default function ParticleImage() {
     uPictureTexture: { value: useLoader(TextureLoader, '/images/oni_2.png') },
     uDisplacementTexture: { value: displacement.texture },
     uResolution: {
+      max: sizes.width * sizes.pixelRatio,
       value: new Vector2(
         sizes.width * sizes.pixelRatio,
         sizes.height * sizes.pixelRatio
@@ -161,7 +162,7 @@ export default function ParticleImage() {
       planeRef.current?.setAttribute('aIntensity', intensityAttribute)
       planeRef.current?.setAttribute('aAngle', angleAttribute)
       planeRef.current.setIndex(null)
-      planeRef.current.deleteAttribute('normal')
+      // planeRef.current.deleteAttribute('normal')
     }
   }, [planeRef])
 
@@ -179,14 +180,14 @@ export default function ParticleImage() {
           ref={shader}
           side={DoubleSide}
           uniforms={uniforms}
-          sizeAttenuation
+          depthWrite={false}
           vertexShader={vertexShader}
           fragmentShader={fragmentShader}
         />
       </points>
       <mesh visible={false} ref={displacement.plane}>
         <planeGeometry args={[10, 10]} />
-        <meshBasicMaterial side={DoubleSide} />
+        <meshBasicMaterial side={DoubleSide} depthWrite={false} />
       </mesh>
     </>
   )

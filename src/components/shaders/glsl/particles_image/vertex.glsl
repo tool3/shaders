@@ -1,4 +1,5 @@
 uniform vec2 uResolution;
+uniform vec3 uColor;
 uniform sampler2D uPictureTexture;
 uniform sampler2D uDisplacementTexture;
 
@@ -33,5 +34,5 @@ void main() {
     gl_PointSize = 0.5 * pictureIntensity * uResolution.y;
     gl_PointSize *= (1.0 / -viewPosition.z);
 
-    vColor = vec3(pow(pictureIntensity, 2.0));
+    vColor = vec3(uColor * pow(pictureIntensity, 2.0));
 }
