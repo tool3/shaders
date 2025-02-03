@@ -35,8 +35,8 @@ export default function CanvasWithModel({
   const { isMobile, isTablet } = useDeviceDetect()
   const zoom = isMobile && !isTablet ? 13 : initZoom
 
-  const { fps } = useControls({
-    fps: false
+  const { perf } = useControls({
+    perf: false
   })
 
   useLayoutEffect(() => {
@@ -51,7 +51,7 @@ export default function CanvasWithModel({
   return (
     <>
       <Leva collapsed hidden={!active} />
-      {fps ? <Stats /> : null}
+      {perf ? <Stats /> : null}
       <Debug set={setActive} />
       <Canvas
         className={className}
@@ -75,7 +75,7 @@ export default function CanvasWithModel({
           width: '100vw'
         }}
       >
-        {fps ? <Perf position="bottom-left" logsPerSecond={1} /> : null}
+        {perf ? <Perf position="bottom-left" logsPerSecond={1} /> : null}
         <color attach={'background'} args={['#000']} />
         <Suspense fallback={null}>{children}</Suspense>
 
