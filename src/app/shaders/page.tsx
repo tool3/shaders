@@ -1,3 +1,43 @@
+import Image from 'next/image'
+
+import s from './page.module.scss'
+
 export default function Page() {
-  return <h1>hello hello</h1>
+  const shaders = [
+    {
+      name: 'displacement',
+      path: '/shaders/displacement'
+    },
+    {
+      name: 'displacement-shading',
+      path: '/shaders/displacement-shading'
+    },
+    {
+      name: 'holographic',
+      path: '/shaders/holographic'
+    },
+    {
+      name: 'image-particles',
+      path: '/shaders/image-particles'
+    }
+  ]
+
+  return (
+    <div className={s.grid}>
+      {shaders.map(({ name, path }, i) => {
+        return (
+          <a href={path} key={i}>
+            <Image
+              alt={name}
+              className={s.image}
+              src={`/images/shaders/${name}.png`}
+              width={1024}
+              height={1024}
+              sizes="100vw"
+            />
+          </a>
+        )
+      })}
+    </div>
+  )
 }
