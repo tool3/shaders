@@ -35,10 +35,16 @@ export default function ParticleImage() {
   const canvasRef = useRef(displacement.canvas) as any
 
   function initCanvas() {
+    const previousCanvas = document.querySelector('#displacement')
+    if (previousCanvas) {
+      document.body.removeChild(previousCanvas)
+    }
+
     // 2d canvas style
     displacement.canvas.width = 128
     displacement.canvas.height = 128
     displacement.canvas.ref = canvasRef
+    displacement.canvas.id = 'displacement'
     displacement.canvas.style.position = 'fixed'
     displacement.canvas.style.width = '256px'
     displacement.canvas.style.height = '256px'
@@ -176,7 +182,7 @@ export default function ParticleImage() {
       value: true,
       onChange: (val) => {
         if (canvasRef.current) {
-          if (!val) canvasRef.current.style.display = 'none'
+          canvasRef.current.style.display = val ? 'block' : 'none'
         }
       }
     }
