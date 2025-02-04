@@ -33,7 +33,7 @@ export default function CanvasWithModel({
   const target = useRef([0, 0, 0]) as any
   const [active, setActive] = useState(panel)
   const { isMobile, isTablet } = useDeviceDetect()
-  const zoom = isMobile && !isTablet ? 13 : initZoom
+  const zoom = isMobile && !isTablet ? 50 : initZoom
 
   const { perf } = useControls({
     perf: false

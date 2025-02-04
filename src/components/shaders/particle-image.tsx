@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unknown-property */
 import { useFrame, useLoader } from '@react-three/fiber'
 import { useControls } from 'leva'
-import { useEffect, useRef } from 'react'
+import { createRef, Suspense, useEffect, useRef } from 'react'
 import {
   AdditiveBlending,
   BufferAttribute,
@@ -31,47 +32,54 @@ export default function ParticleImage() {
     canvas: document.createElement('canvas')
   } as any
 
-  // 2d canvas style
-  displacement.canvas.width = 128
-  displacement.canvas.height = 128
-  displacement.canvas.style.position = 'fixed'
-  displacement.canvas.style.width = '256px'
-  displacement.canvas.style.height = '256px'
-  displacement.canvas.style.position = 'fixed'
-  displacement.canvas.style.top = 0
-  displacement.canvas.style.left = 0
-  displacement.canvas.style.zIndex = 10
+  const canvasRef = useRef(displacement.canvas) as any
 
-  document.body.appendChild(displacement.canvas)
+  function initCanvas() {
+    // 2d canvas style
+    displacement.canvas.width = 128
+    displacement.canvas.height = 128
+    displacement.canvas.ref = canvasRef
+    displacement.canvas.style.position = 'fixed'
+    displacement.canvas.style.width = '256px'
+    displacement.canvas.style.height = '256px'
+    displacement.canvas.style.position = 'fixed'
+    displacement.canvas.style.top = 0
+    displacement.canvas.style.left = 0
+    displacement.canvas.style.zIndex = 10
 
-  // context
-  displacement.context = displacement.canvas.getContext('2d')
-  displacement.context.fillRect(
-    0,
-    0,
-    displacement.canvas.width,
-    displacement.canvas.height
-  )
+    document.body.appendChild(displacement.canvas)
 
-  // draw image
-  displacement.image = new Image()
-  displacement.image.src = '/images/glow.png'
-  displacement.image.onload = () => {
-    displacement.context.drawImage(displacement.image, 20, 20, 32, 32)
+    // context
+    displacement.context = displacement.canvas.getContext('2d')
+    displacement.context.fillRect(
+      0,
+      0,
+      displacement.canvas.width,
+      displacement.canvas.height
+    )
+
+    // draw image
+    displacement.image = new Image()
+    displacement.image.src = '/images/glow.png'
+    displacement.image.onload = () => {
+      displacement.context.drawImage(displacement.image, 20, 20, 32, 32)
+    }
+
+    // raycast plane
+    displacement.plane = createRef()
+
+    // raycaster
+    displacement.raycaster = new Raycaster()
+
+    // coordinates
+    displacement.screenCursor = new Vector2(9999, 9999)
+    displacement.canvasCursor = new Vector2(9999, 9999)
+    displacement.canvasCursorPrevious = new Vector2(9999, 9999)
+
+    displacement.texture = new CanvasTexture(displacement.canvas)
   }
 
-  // raycast plane
-  displacement.plane = useRef()
-
-  // raycaster
-  displacement.raycaster = new Raycaster()
-
-  // coordinates
-  displacement.screenCursor = new Vector2(9999, 9999)
-  displacement.canvasCursor = new Vector2(9999, 9999)
-  displacement.canvasCursorPrevious = new Vector2(9999, 9999)
-
-  displacement.texture = new CanvasTexture(displacement.canvas)
+  initCanvas()
 
   useEffect(() => {
     addEventListener('pointermove', (event) => {
@@ -130,7 +138,9 @@ export default function ParticleImage() {
   const uniforms = {
     uTime: { value: 0 },
     uColor: { value: new Color('#ffffff') },
-    uPictureTexture: { value: useLoader(TextureLoader, '/images/oni_2.png') },
+    uPictureTexture: {
+      value: useLoader(TextureLoader, '/images/image-particles/e.JPG')
+    },
     uDisplacementTexture: { value: displacement.texture },
     uResolution: {
       max: sizes.width * sizes.pixelRatio,
@@ -143,6 +153,34 @@ export default function ParticleImage() {
 
   const controls = getControlsFromUniforms(uniforms, shader)
   useControls('ParticleImage', controls)
+  useControls({
+    image: {
+      value: '/images/image-particles/a.JPG',
+      options: {
+        a: '/images/image-particles/a.JPG',
+        b: '/images/image-particles/b.JPG',
+        c: '/images/image-particles/c.JPG',
+        d: '/images/image-particles/d.JPG',
+        e: '/images/image-particles/e.JPG',
+        f: '/images/image-particles/f.JPG',
+        g: '/images/image-particles/g.JPG',
+        h: '/images/image-particles/h.JPG'
+      },
+      onChange: (val) => {
+        shader.current.uniforms.uPictureTexture.value =
+          new TextureLoader().load(val)
+        shader.current.uniforms.uPictureTexture.value.needsUpdate = true
+      }
+    },
+    overlay: {
+      value: true,
+      onChange: (val) => {
+        if (canvasRef.current) {
+          if (!val) canvasRef.current.style.display = 'none'
+        }
+      }
+    }
+  })
 
   useEffect(() => {
     if (planeRef.current) {
@@ -167,7 +205,7 @@ export default function ParticleImage() {
   }, [planeRef])
 
   return (
-    <>
+    <Suspense fallback={null}>
       <points>
         <planeGeometry ref={planeRef} args={[10, 10, 256, 256]}>
           <bufferGeometry attach="geometry">
@@ -189,6 +227,6 @@ export default function ParticleImage() {
         <planeGeometry args={[10, 10]} />
         <meshBasicMaterial side={DoubleSide} depthWrite={false} />
       </mesh>
-    </>
+    </Suspense>
   )
 }
