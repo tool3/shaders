@@ -1,5 +1,4 @@
 /* eslint-disable react/no-unknown-property */
-import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useControls } from 'leva'
 import { useRef } from 'react'
@@ -38,5 +37,3 @@ export default function Holographic() {
     />
   )
 }
-
-useGLTF.preload('/models/minimac.glb')

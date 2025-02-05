@@ -1,5 +1,10 @@
 /* eslint-disable react/no-unknown-property */
-import { OrbitControls, Stats } from '@react-three/drei'
+import {
+  Environment,
+  OrbitControls,
+  Stats,
+  useEnvironment
+} from '@react-three/drei'
 import { Canvas, Vector3 } from '@react-three/fiber'
 import gsap from 'gsap'
 import { Leva, useControls } from 'leva'
@@ -14,17 +19,23 @@ export default function CanvasWithModel({
   className,
   orbitEnabled = true,
   panel = false,
-  maxZoom = 300,
+  useCameraProps = true,
   minZoom = 10,
+  maxZoom = 300,
+  minDistance = 10,
+  maxDistance = 100,
   initZoom = 50,
   cameraPosition = [0, 0, 100],
   children
 }: {
   className?: string
   orbitEnabled?: boolean
+  useCameraProps?: boolean
   panel?: boolean
-  maxZoom?: number
   minZoom?: number
+  maxZoom?: number
+  minDistance?: number
+  maxDistance?: number
   initZoom?: number
   cameraPosition?: Vector3
   children: ReactNode
@@ -48,6 +59,17 @@ export default function CanvasWithModel({
     }
   }, [target])
 
+  const cameraProps = useCameraProps
+    ? {
+        orthographic: true,
+        camera: {
+          fov: 50,
+          position: cameraPosition,
+          zoom
+        }
+      }
+    : {}
+
   return (
     <>
       <Leva collapsed hidden={!active} />
@@ -57,26 +79,15 @@ export default function CanvasWithModel({
         className={className}
         ref={canvasRef}
         dpr={[1, 2]}
-        orthographic
-        camera={{
-          frustumCulled: true,
-          fov: 50,
-          position: cameraPosition,
-          zoom
-        }}
-        gl={{
-          antialias: true,
-          alpha: false,
-          premultipliedAlpha: false,
-          powerPreference: 'high-performance'
-        }}
+        shadows
+        {...cameraProps}
         style={{
           height: '100svh',
           width: '100vw'
         }}
+        // gl={{ antialias: true, alpha: true }}
       >
         {perf ? <Perf position="bottom-left" logsPerSecond={1} /> : null}
-        <color attach={'background'} args={['#000']} />
         <Suspense fallback={null}>{children}</Suspense>
 
         <OrbitControls
@@ -85,8 +96,8 @@ export default function CanvasWithModel({
           enabled={orbitEnabled}
           minZoom={minZoom}
           maxZoom={maxZoom}
-          maxDistance={100}
-          minDistance={10}
+          maxDistance={maxDistance}
+          minDistance={minDistance}
         />
       </Canvas>
     </>
