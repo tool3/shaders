@@ -1,6 +1,6 @@
 import Image from 'next/image'
-
 import Link from 'next/link'
+
 import s from './page.module.scss'
 
 export default function Page() {
@@ -33,7 +33,7 @@ export default function Page() {
               className={s.image}
               src={`/images/shaders/${name}.png`}
               width={1024}
-              height={1024}
+              height={500}
               sizes="100vw"
             />
           </Link>

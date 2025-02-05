@@ -1,4 +1,13 @@
 .grid {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(auto-fit, 50vh);
+  grid-template-rows: repeat(auto-fit, 50vh);
+  width: 100vw;
+
+
+  @media screen  and (width <= 800px) {
+    grid-template-columns: none;
+    grid-template-rows: none;
+  }
+
 }

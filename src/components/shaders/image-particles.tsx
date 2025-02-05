@@ -18,7 +18,7 @@ import { getControlsFromUniforms } from '../util'
 import fragmentShader from './glsl/particles_image/fragment.glsl'
 import vertexShader from './glsl/particles_image/vertex.glsl'
 
-export default function ParticleImage() {
+export default function ImageParticles() {
   const shader = useRef() as any
   const planeRef = useRef() as any
 
