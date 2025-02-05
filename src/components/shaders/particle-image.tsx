@@ -34,11 +34,14 @@ export default function ParticleImage() {
 
   const canvasRef = useRef(displacement.canvas) as any
 
-  function initCanvas() {
+  function removeCanvas() {
     const previousCanvas = document.querySelector('#displacement')
     if (previousCanvas) {
       document.body.removeChild(previousCanvas)
     }
+  }
+  function initCanvas() {
+    removeCanvas()
 
     // 2d canvas style
     displacement.canvas.width = 128
@@ -208,6 +211,8 @@ export default function ParticleImage() {
       planeRef.current.setIndex(null)
       // planeRef.current.deleteAttribute('normal')
     }
+
+    return () => removeCanvas()
   }, [planeRef])
 
   return (

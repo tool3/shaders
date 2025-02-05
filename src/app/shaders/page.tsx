@@ -1,5 +1,6 @@
 import Image from 'next/image'
 
+import Link from 'next/link'
 import s from './page.module.scss'
 
 export default function Page() {
@@ -26,7 +27,7 @@ export default function Page() {
     <div className={s.grid}>
       {shaders.map(({ name, path }, i) => {
         return (
-          <a href={path} key={i}>
+          <Link href={path} key={i}>
             <Image
               alt={name}
               className={s.image}
@@ -35,7 +36,7 @@ export default function Page() {
               height={1024}
               sizes="100vw"
             />
-          </a>
+          </Link>
         )
       })}
     </div>
