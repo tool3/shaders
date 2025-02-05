@@ -1,10 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import {
-  Environment,
-  OrbitControls,
-  Stats,
-  useEnvironment
-} from '@react-three/drei'
+import { OrbitControls, Stats } from '@react-three/drei'
 import { Canvas, Vector3 } from '@react-three/fiber'
 import gsap from 'gsap'
 import { Leva, useControls } from 'leva'
