@@ -20,6 +20,10 @@ export default function Page() {
     {
       name: 'image-particles',
       path: '/shaders/image-particles'
+    },
+    {
+      name: 'wobbly-sphere',
+      path: '/shaders/wobbly-sphere'
     }
   ]
 
