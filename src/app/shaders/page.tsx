@@ -5,31 +5,18 @@ import s from './page.module.scss'
 
 export default function Page() {
   const shaders = [
-    {
-      name: 'displacement',
-      path: '/shaders/displacement'
-    },
-    {
-      name: 'displacement-shading',
-      path: '/shaders/displacement-shading'
-    },
-    {
-      name: 'holographic',
-      path: '/shaders/holographic'
-    },
-    {
-      name: 'image-particles',
-      path: '/shaders/image-particles'
-    },
-    {
-      name: 'wobbly-sphere',
-      path: '/shaders/wobbly-sphere'
-    }
+    'displacement',
+    'displacement-shading',
+    'holographic',
+    'image-particles',
+    'wobbly-sphere',
+    'halftone'
   ]
 
   return (
     <div className={s.grid}>
-      {shaders.map(({ name, path }, i) => {
+      {shaders.map((name, i) => {
+        const path = `/shaders/${name}`
         return (
           <Link href={path} key={i}>
             <Image

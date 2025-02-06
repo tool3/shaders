@@ -40,8 +40,9 @@ export default function CanvasWithModel({
   const { isMobile, isTablet } = useDeviceDetect()
   const zoom = isMobile && !isTablet ? 50 : initZoom
 
-  const { perf } = useControls({
-    perf: false
+  const { perf, background } = useControls({
+    perf: false,
+    background: '#000'
   })
 
   const cameraProps = useCameraProps
@@ -71,7 +72,7 @@ export default function CanvasWithModel({
           width: '100vw'
         }}
       >
-        <color attach="background" args={['#000']} />
+        <color attach="background" args={[background]} />
         {perf ? <Perf position="bottom-left" logsPerSecond={1} /> : null}
         <Suspense fallback={null}>{children}</Suspense>
 
