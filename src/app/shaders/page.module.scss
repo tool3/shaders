@@ -1,13 +1,32 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, 50vw);
-  // grid-template-rows: repeat(auto-fit, 50vh);
   width: 100vw;
 
-
-  @media screen  and (width <= 800px) {
+  @media screen and (width <= 800px) {
     grid-template-columns: none;
     grid-template-rows: none;
   }
 
+  .link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    .label {
+      position: absolute;
+      color: white;
+      font-size: 2rem;
+      font-family: Grotesque;
+      transition: .2s ease-in-out;
+      color: rgba(255, 255, 255, 0.641);      
+    }
+
+    &:hover {
+      .label {
+        color: rgba(255, 255, 255, 1.0);
+        text-shadow: 0 0 10px black;
+      }
+    }
+  }
 }

@@ -18,7 +18,8 @@ export default function Page() {
       {shaders.map((name, i) => {
         const path = `/shaders/${name}`
         return (
-          <Link href={path} key={i}>
+          <Link href={path} key={i} className={s.link}>
+            <div className={s.label}>{name}</div>
             <Image
               alt={name}
               className={s.image}
