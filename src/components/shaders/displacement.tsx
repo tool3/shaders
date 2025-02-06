@@ -27,7 +27,6 @@ export default function Displacement() {
   }
 
   const controls = getControlsFromUniforms(uniforms, shader)
-  console.log({ controls })
   useControls('Displacement', controls)
 
   useFrame(({ clock }) => {

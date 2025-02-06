@@ -18,11 +18,13 @@ export default function Page() {
       useCameraProps={false}
     >
       <WobblySphere />
-      <Environment
-        files="/textures/environments/studio_small_03_1k.hdr"
-        background
-        backgroundIntensity={1}
-        environmentIntensity={1}
+      <Environment files="/textures/environments/autumn_field_1k.hdr" />
+      <directionalLight
+        position={[0, 5, 10]}
+        castShadow
+        receiveShadow
+        color="#ffffff"
+        intensity={3}
       />
     </CanvasWithModel>
   )

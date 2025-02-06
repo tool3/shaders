@@ -1,10 +1,9 @@
 /* eslint-disable react/no-unknown-property */
 import { OrbitControls, Stats } from '@react-three/drei'
 import { Canvas, Vector3 } from '@react-three/fiber'
-import gsap from 'gsap'
 import { Leva, useControls } from 'leva'
 import { Perf } from 'r3f-perf'
-import { ReactNode, Suspense, useLayoutEffect, useRef, useState } from 'react'
+import { ReactNode, Suspense, useRef, useState } from 'react'
 
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 
@@ -45,15 +44,6 @@ export default function CanvasWithModel({
     perf: false
   })
 
-  useLayoutEffect(() => {
-    if (target.current) {
-      gsap.to(target.current.position, {
-        z: 0,
-        delay: 1
-      })
-    }
-  }, [target])
-
   const cameraProps = useCameraProps
     ? {
         orthographic: true,
@@ -80,8 +70,8 @@ export default function CanvasWithModel({
           height: '100svh',
           width: '100vw'
         }}
-        // gl={{ antialias: true, alpha: true }}
       >
+        <color attach="background" args={['#000']} />
         {perf ? <Perf position="bottom-left" logsPerSecond={1} /> : null}
         <Suspense fallback={null}>{children}</Suspense>
 

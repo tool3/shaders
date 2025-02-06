@@ -40,6 +40,7 @@
     "react-fast-marquee": "1.6.5",
     "react-merge-refs": "^2.1.1",
     "three": "0.171.0",
+    "three-custom-shader-material": "^6.3.0",
     "three-stdlib": "^2.35.7",
     "url-loader": "^4.1.1",
     "zod": "^3.23.4",
