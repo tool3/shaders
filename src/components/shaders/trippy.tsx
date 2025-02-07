@@ -24,14 +24,16 @@ export default function Trippy() {
     if (shader.current) shader.current.uniforms.uTime.value = elapsedTime
   })
 
+  const resolution = new Vector2(
+    sizes.width * sizes.pixelRatio,
+    sizes.height * sizes.pixelRatio
+  )
+
   const uniforms = {
     uTime: { value: 0 },
     uResolution: {
-      max: sizes.width * sizes.pixelRatio,
-      value: new Vector2(
-        sizes.width * sizes.pixelRatio,
-        sizes.height * sizes.pixelRatio
-      )
+      max: resolution,
+      value: resolution
     }
   }
 
