@@ -1,12 +1,12 @@
 'use client'
 
 import CanvasWithModel from '~/components/mincanvas/minicanvas'
-import RayMarchingB from '~/components/shaders/ray-marching-b'
+import RayMarchingOrbit from '~/components/shaders/ray-marching-orbit'
 
 export default function Page() {
   return (
     <CanvasWithModel orbitEnabled={false} initZoom={3} useCameraProps={false}>
-      <RayMarchingB />
+      <RayMarchingOrbit />
     </CanvasWithModel>
   )
 }

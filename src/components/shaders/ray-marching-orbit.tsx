@@ -7,10 +7,10 @@ import { Suspense, useLayoutEffect, useRef } from 'react'
 import { DoubleSide, Vector2 } from 'three'
 
 import { getControlsFromUniforms } from '../util'
-import fragmentShader from './glsl/raymarching-b/fragment.glsl'
-import vertexShader from './glsl/raymarching-b/vertex.glsl'
+import fragmentShader from './glsl/raymarching-orbit/fragment.glsl'
+import vertexShader from './glsl/raymarching-orbit/vertex.glsl'
 
-export default function RayMarchingB() {
+export default function RayMarchingOrbit() {
   const shader = useRef() as any
   const planeRef = useRef() as any
 
@@ -52,7 +52,6 @@ export default function RayMarchingB() {
       const x = e.offsetX / sizes.width
       const y = 1 - e.offsetY / sizes.height
       if (shader.current) {
-        console.log(x, y)
         shader.current.uniforms.uMouse.value.x = x
         shader.current.uniforms.uMouse.value.y = y
       }
