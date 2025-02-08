@@ -1,27 +1,23 @@
 uniform vec2 uResolution;
+uniform vec2 uMouse;
 varying vec3 vColor;
 uniform float uTime;
+uniform sampler2D uTexture;
 
 vec3 palette(float t) {
     // vec3 a = vec3(0.5, 0.5, 0.5);
     // vec3 b = vec3(0.5, 0.5, 0.5);
     // vec3 c = vec3(1.0, 1.0, 1.0);
     // vec3 d = vec3(0.30, 0.20, 0.20);
-
     // vec3 a = vec3(0.5, 0.5, 0.5);
     // vec3 b = vec3(0.5, 0.5, 0.5);
-    // vec3 c = vec3(2.0, 1.0, 0.0);
-    // vec3 d = vec3(0.50, 0.20, 0.25);
-
-    // vec3 a = vec3(0.5, 0.5, 0.5);
-    // vec3 b = vec3(0.5, 0.5, 0.5);
-    // vec3 c = vec3(2.0, 1.0, 0.0);
-    // vec3 d = vec3(0.50, 0.20, 0.25);
+    // vec3 c = vec3(1.0, 1.0, 1.0);
+    // vec3 d = vec3(0.00, 0.33, 0.67);
 
     vec3 a = vec3(0.5, 0.5, 0.5);
     vec3 b = vec3(0.5, 0.5, 0.5);
-    vec3 c = vec3(1.0, 1.0, 1.0);
-    vec3 d = vec3(0.00, 0.33, 0.67);
+    vec3 c = vec3(2.0, 1.0, 0.0);
+    vec3 d = vec3(0.50, 0.20, 0.25);
 
     // vec3 a = vec3(0.5, 0.5, 0.5);
     // vec3 b = vec3(0.5, 0.5, 0.5);
@@ -67,6 +63,11 @@ float sdTorus(vec3 p, vec2 t) {
     return length(q) - t.y;
 }
 
+float sdVerticalCapsule(vec3 p, float h, float r) {
+    p.y -= clamp(p.y, 0.0, h);
+    return length(p) - r;
+}
+
 float sdPyramid(vec3 p, float h) {
     float m2 = h * h + 0.25;
 
@@ -93,24 +94,42 @@ float smin(float a, float b, float k) {
 }
 
 float map(vec3 p) {
-    p.z += uTime * 0.4;
-    p.y += cos(uTime * 0.4);
+    // p.z += uTime * 0.4;
+    p.y -= uTime * 0.4;
 
     p = fract(p) - 0.5;
 
+    // float box = sdVerticalCapsule(p, 0.15, 0.05);
     float box = sdSphere(p, 0.15);
 
     return box;
 }
 
+// float map(vec3 p) {
+//     float box = sdBox(p, vec3(0.5));
+//     return length(box) - 1.0;
+// }
+
+float noise(vec2 p) {
+    return fract(sin(p.x * 100.0 + p.y * 6574.0) * 5647.0);
+}
+
 void main() {
     vec2 uv = (gl_FragCoord.xy * 2.0 - uResolution.xy) / uResolution.y;
+    vec2 m = (uMouse * 2.0);
+
     // init
     vec3 ro = vec3(0.0, 0.0, -3.0);
-    vec3 rd = normalize(vec3(uv * 1.5, 1.0));
+    vec3 rd = normalize(vec3(uv, 1.0));
     vec3 col = vec3(0.0);
 
     float t = 0.0;
+
+    ro.yz *= rot2D(-m.y);
+    rd.yz *= rot2D(-m.y);
+    
+    ro.xz *= rot2D(-m.x);
+    rd.xz *= rot2D(-m.x);
 
     // raymarch
     int i;
@@ -131,9 +150,6 @@ void main() {
     col = palette(t * 0.09 + float(i) * 0.005);
 
     gl_FragColor = vec4(col, 1.0);
-
-    // #include <tonemapping_fragment>
-    // #include <colorspace_fragment>
 }
 
 // RAYMARCH BASE

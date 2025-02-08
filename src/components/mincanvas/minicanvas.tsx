@@ -54,7 +54,7 @@ export default function CanvasWithModel({
           zoom
         }
       }
-    : {}
+    : { camera: { zoom } }
 
   return (
     <>
