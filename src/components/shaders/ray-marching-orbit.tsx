@@ -65,7 +65,7 @@ export default function RayMarchingOrbit() {
   return (
     <Suspense fallback={null}>
       <mesh>
-        <planeGeometry ref={planeRef} args={[5, 5, 256, 256]} />
+        <planeGeometry ref={planeRef} args={[5, 5, 1, 1]} />
         <shaderMaterial
           attach="material"
           ref={shader}
