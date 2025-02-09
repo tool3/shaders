@@ -10,7 +10,10 @@ export default function Page() {
     'holographic',
     'image-particles',
     'wobbly-sphere',
-    'halftone'
+    'halftone',
+    'raymarching',
+    'raymarching-orbit',
+    'raymarching-scene'
   ]
 
   return (
@@ -21,6 +24,7 @@ export default function Page() {
           <Link href={path} key={i} className={s.link}>
             <div className={s.label}>{name}</div>
             <Image
+              priority
               alt={name}
               className={s.image}
               src={`/images/shaders/${name}.png`}

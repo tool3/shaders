@@ -94,11 +94,11 @@ float smin(float a, float b, float k) {
 
 float map(vec3 p) {
     p.z += uTime * 0.4;
-    p.y += cos(uTime * 0.4);
+    p.y += sin(uTime * 0.4);
 
     p = fract(p) - 0.5;
 
-    float box = sdSphere(p, 0.15);
+    float box = sdBox(p, vec3(0.15));
 
     return box;
 }
