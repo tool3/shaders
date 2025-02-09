@@ -1,19 +1,19 @@
 uniform vec2 uResolution;
-uniform vec2 uMouse;
+uniform vec3 uMouse;
 varying vec3 vColor;
 uniform float uTime;
 uniform sampler2D uTexture;
 
 vec3 palette(float t) {
-    // vec3 a = vec3(0.5, 0.5, 0.5);
-    // vec3 b = vec3(0.5, 0.5, 0.5);
-    // vec3 c = vec3(1.0, 1.0, 1.0);
-    // vec3 d = vec3(0.30, 0.20, 0.20);
-
     vec3 a = vec3(0.5, 0.5, 0.5);
     vec3 b = vec3(0.5, 0.5, 0.5);
     vec3 c = vec3(1.0, 1.0, 1.0);
-    vec3 d = vec3(0.00, 0.33, 0.67);
+    vec3 d = vec3(0.30, 0.20, 0.20);
+
+    // vec3 a = vec3(0.5, 0.5, 0.5);
+    // vec3 b = vec3(0.5, 0.5, 0.5);
+    // vec3 c = vec3(1.0, 1.0, 1.0);
+    // vec3 d = vec3(0.00, 0.33, 0.67);
 
     // vec3 a = vec3(0.5, 0.5, 0.5);
     // vec3 b = vec3(0.5, 0.5, 0.5);
@@ -96,18 +96,19 @@ float smin(float a, float b, float k) {
 
 float map(vec3 p) {
     // p.z += uTime * 0.4;
-    p.y -= uTime * 0.4;
+    p.z += uTime * 0.4;
 
-    p = fract(p) - 0.5;
+    p.xy = (fract(p.xy * 0.55) - 0.5);
+    p.z = mod(p.z, 0.25) - 0.125;
 
     // float box = sdVerticalCapsule(p, 0.15, 0.05);
-    float box = sdSphere(p, 0.15);
+    float box = sdOctahedron(p, 0.15);
 
     return box;
 }
 
 // float map(vec3 p) {
-//     float box = sdBox(p, vec3(0.5));
+//     float box = sdOctahedron(p, 0.05);
 //     return length(box) - 1.0;
 // }
 
@@ -117,7 +118,7 @@ float noise(vec2 p) {
 
 void main() {
     vec2 uv = (gl_FragCoord.xy * 2.0 - uResolution.xy) / uResolution.y;
-    vec2 m = (uMouse * 2.0);
+    vec2 m = (uMouse.xy);
 
     // init
     vec3 ro = vec3(0.0, 0.0, -3.0);
@@ -126,16 +127,22 @@ void main() {
 
     float t = 0.0;
 
-    ro.yz *= rot2D(-m.y);
-    rd.yz *= rot2D(-m.y);
-    
-    ro.xz *= rot2D(-m.x);
-    rd.xz *= rot2D(-m.x);
+    // ro.yz *= rot2D(-m.y);
+    // rd.yz *= rot2D(-m.y);
+
+    // ro.xz *= rot2D(-m.x);
+    // rd.xz *= rot2D(-m.x);
+
+    if (uMouse.z != 1.0) m = vec2(cos(uTime * 0.2), sin(uTime * 0.2));
 
     // raymarch
     int i;
     for(i = 0; i < 80; i++) {
         vec3 p = ro + rd * t;
+
+        p.xy *= rot2D(t * 0.2 * m.x);
+
+        p.y += sin(t * (m.y + 1.0) * 0.5) * 0.35;
 
         float d = map(p);
 
@@ -148,7 +155,8 @@ void main() {
     }
 
     // color
-    col = palette(t * 0.09 + float(i) * 0.009 * noise(uv) * 0.5);
+    // col = palette(t);
+    col = palette(t * 0.04 + float(i) * 0.005);
 
     gl_FragColor = vec4(col, 1.0);
 }

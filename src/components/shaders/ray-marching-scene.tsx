@@ -4,11 +4,11 @@ import { useTexture } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useControls } from 'leva'
 import { Suspense, useLayoutEffect, useRef } from 'react'
-import { DoubleSide, Vector2 } from 'three'
+import { DoubleSide, Vector2, Vector3 } from 'three'
 
 import { getControlsFromUniforms } from '../util'
-import fragmentShader from './glsl/raymarching-orbit/fragment.glsl'
-import vertexShader from './glsl/raymarching-orbit/vertex.glsl'
+import fragmentShader from './glsl/raymarching-scene/fragment.glsl'
+import vertexShader from './glsl/raymarching-scene/vertex.glsl'
 
 export default function RayMarchingScene() {
   const shader = useRef() as any
@@ -40,7 +40,7 @@ export default function RayMarchingScene() {
       value: texture.channel
     },
     uMouse: {
-      value: new Vector2(0.0, 0.0)
+      value: new Vector3(0.0, 0.0, 0.0)
     }
   }
 
@@ -48,18 +48,19 @@ export default function RayMarchingScene() {
   useControls('RayMarching', controls)
 
   function handleMouse(e: MouseEvent) {
-    if (e.buttons === 1) {
-      const x = e.offsetX / sizes.width
-      const y = 1 - e.offsetY / sizes.height
-      if (shader.current) {
-        shader.current.uniforms.uMouse.value.x = x
-        shader.current.uniforms.uMouse.value.y = y
-      }
+    const x = 1 - e.offsetX / sizes.width
+    const y = 1 - e.offsetY / sizes.height
+    const z = e.buttons === 1 ? 1 : 0
+
+    if (shader.current) {
+      shader.current.uniforms.uMouse.value.x = x
+      shader.current.uniforms.uMouse.value.y = y
+      shader.current.uniforms.uMouse.value.z = z
     }
   }
 
   useLayoutEffect(() => {
-    addEventListener('mousemove', handleMouse)
+    addEventListener('pointermove', handleMouse)
   }, [])
 
   return (

@@ -47,10 +47,11 @@ export default function RayMarchingOrbit() {
   const controls = getControlsFromUniforms(uniforms, shader)
   useControls('RayMarching', controls)
 
-  function handleMouse(e: MouseEvent) {
+  function handleMouse(e: PointerEvent) {
     if (e.buttons === 1) {
       const x = e.offsetX / sizes.width
       const y = 1 - e.offsetY / sizes.height
+
       if (shader.current) {
         shader.current.uniforms.uMouse.value.x = x
         shader.current.uniforms.uMouse.value.y = y
@@ -59,7 +60,7 @@ export default function RayMarchingOrbit() {
   }
 
   useLayoutEffect(() => {
-    addEventListener('mousemove', handleMouse)
+    addEventListener('pointermove', handleMouse)
   }, [])
 
   return (
