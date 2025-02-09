@@ -11,6 +11,7 @@ export default function Page() {
     'image-particles',
     'wobbly-sphere',
     'halftone',
+    'trippy',
     'raymarching',
     'raymarching-orbit',
     'raymarching-scene'
