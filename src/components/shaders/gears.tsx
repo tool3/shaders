@@ -2,18 +2,13 @@
 import { useFrame } from '@react-three/fiber'
 import { useControls } from 'leva'
 import { useEffect, useRef } from 'react'
-import {
-  Color,
-  MeshDepthMaterial,
-  MeshPhysicalMaterial,
-  RGBADepthPacking
-} from 'three'
+import { Color, MeshPhysicalMaterial } from 'three'
 import CustomShaderMaterial from 'three-custom-shader-material'
 import { mergeVertices } from 'three-stdlib'
 
 import { getControlsFromUniforms } from '../util'
-import fragmentShader from './glsl/wobbly-sphere/fragment.glsl'
-import vertexShader from './glsl/wobbly-sphere/vertex.glsl'
+import fragmentShader from './glsl/gears/fragment.glsl'
+import vertexShader from './glsl/gears/vertex.glsl'
 
 export default function Gears() {
   const shader = useRef() as any
@@ -58,9 +53,15 @@ export default function Gears() {
 
   return (
     <mesh ref={icohedron} castShadow receiveShadow>
-      <planeGeometry args={[5, 5, 1, 1]} />
       <icosahedronGeometry args={[2.5, 128]} />
-      <meshStandardMaterial color="gray" />
+      <CustomShaderMaterial
+        ref={shader}
+        uniforms={uniforms}
+        baseMaterial={MeshPhysicalMaterial}
+        fragmentShader={fragmentShader}
+        vertexShader={vertexShader}
+        {...materialProps}
+      />
     </mesh>
   )
 }
