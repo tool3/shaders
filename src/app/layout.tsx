@@ -18,11 +18,11 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-body' })
 
 export const metadata: Metadata = {
   title: {
-    default: 'T.H.E LAB | Tal Hayut',
+    default: 'Shader Lab | Tal Hayut',
     template: '%s | Tal Hayut'
   },
   metadataBase: siteURL,
-  description: `Tal Hayut's Experiments Lab`,
+  description: `GLSL Shaders and WebGL experiments by Tal Hayut`,
   icons: [
     {
       rel: 'apple-touch-icon',
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
   manifest: '/manifest.webmanifest',
   twitter: {
     card: 'summary_large_image',
-    title: 't.h.elab',
+    title: 'shad3rlab',
     creator: 'talhayut',
-    siteId: 'th3l4b'
+    siteId: 'shad3rlab'
   }
 }
 

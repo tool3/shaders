@@ -38,23 +38,28 @@ export default function CanvasWithModel({
   const target = useRef([0, 0, 0]) as any
   const [active, setActive] = useState(panel)
   const { isMobile, isTablet } = useDeviceDetect()
-  const zoom = isMobile && !isTablet ? 50 : initZoom
+  const zoom = isMobile && !isTablet ? initZoom || 30 : initZoom
 
   const { perf, background } = useControls({
     perf: false,
+    zoom: {
+      value: 1,
+      min: 1,
+      max: 500
+    },
     background: '#000'
   })
 
   const cameraProps = useCameraProps
     ? {
-        orthographic: true,
-        camera: {
-          fov: 50,
-          position: cameraPosition,
-          zoom
-        }
+      orthographic: true,
+      camera: {
+        fov: 50,
+        position: cameraPosition,
+        zoom
       }
-    : { camera: { zoom } }
+    }
+    : { camera: { zoom: zoom } }
 
   return (
     <>
