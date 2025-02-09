@@ -52,13 +52,13 @@ export default function CanvasWithModel({
 
   const cameraProps = useCameraProps
     ? {
-      orthographic: true,
-      camera: {
-        fov: 50,
-        position: cameraPosition,
-        zoom
+        orthographic: true,
+        camera: {
+          fov: 50,
+          position: cameraPosition,
+          zoom
+        }
       }
-    }
     : { camera: { zoom: zoom } }
 
   return (

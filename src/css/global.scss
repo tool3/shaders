@@ -38,6 +38,11 @@
   src: url('../../public//fonts/Seven\ Segment.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: TechnoType;
+  src: url('../../public//fonts/Technotype34-Regular.otf') format('opentype');
+}
+
 :root {
   // Typography
   --font-system: -apple-system, blinkmacsystemfont, segoe ui, roboto, oxygen,

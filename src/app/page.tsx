@@ -38,7 +38,7 @@ const Home: React.FC = () => {
     <div className={styles.pageContainer}>
       <Navbar />
       <main className={styles.main}>
-        <h1 className={styles.heading}>Welcome to T.H.E LAB</h1>
+        <h1 className={styles.heading}>SHAD3RS</h1>
       </main>
     </div>
   )

@@ -11,8 +11,8 @@ export default function Template({ children }) {
     animateIn()
   }, [])
 
-  const letters = ['T', 'H', 'E', 'L', 'A', 'B']
-  const bars = Array.from({ length: 6 }, (_, i) => {
+  const letters = ['S', 'H', 'A', 'D', '3', 'R', 'S']
+  const bars = Array.from({ length: 7 }, (_, i) => {
     return (
       <div key={i} className={s.bar}>
         <svg viewBox="0 0 50 100" preserveAspectRatio="none">

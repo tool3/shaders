@@ -23,11 +23,11 @@
 .navItem {
   font-size: 18px;
   font-weight: 500;
-  color: #6b7280;
   text-decoration: none;
   transition: color 0.3s ease;
   padding: 8px 12px;
   border-radius: 12px;
+  font-family: Grotesque;
 }
 
 .navItem:hover {
@@ -56,7 +56,8 @@
   font-size: 3rem;
   text-decoration: outline;
   font-weight: bold;
-  text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px white, 0 0 1px white; 
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: white;
   color: black;
   font-family: Grotesque;
 }
