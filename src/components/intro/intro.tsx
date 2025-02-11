@@ -12,6 +12,7 @@ export default function IntroPage() {
       orbitEnabled={false}
       initZoom={5}
       useCameraProps={false}
+      allowControls={false}
     >
       <Intro />
     </CanvasWithModel>

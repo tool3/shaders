@@ -14,6 +14,7 @@ export default function CanvasWithModel({
   orbitEnabled = true,
   panel = false,
   useCameraProps = true,
+  allowControls = true,
   minZoom = 10,
   maxZoom = 300,
   minDistance = 10,
@@ -25,6 +26,7 @@ export default function CanvasWithModel({
   className?: string
   orbitEnabled?: boolean
   useCameraProps?: boolean
+  allowControls?: boolean
   panel?: boolean
   minZoom?: number
   maxZoom?: number
@@ -42,30 +44,25 @@ export default function CanvasWithModel({
 
   const { perf, background } = useControls({
     perf: false,
-    zoom: {
-      value: 1,
-      min: 1,
-      max: 500
-    },
     background: '#000'
   })
 
   const cameraProps = useCameraProps
     ? {
-        orthographic: true,
-        camera: {
-          fov: 50,
-          position: cameraPosition,
-          zoom
-        }
+      orthographic: true,
+      camera: {
+        fov: 50,
+        position: cameraPosition,
+        zoom
       }
+    }
     : { camera: { zoom: zoom } }
 
   return (
     <>
       <Leva collapsed hidden={!active} />
       {perf ? <Stats /> : null}
-      <Debug set={setActive} />
+      {allowControls ? <Debug set={setActive} /> : null}
       <Canvas
         className={className}
         ref={canvasRef}

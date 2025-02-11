@@ -46,6 +46,7 @@ const Home: React.FC = () => {
     <div className={styles.pageContainer}>
       <main className={styles.main}>
         <h1 className={styles.heading}>SHAD3RS</h1>
+        {/* <h6 className={styles.subheading}>by Tal Hayut</h6> */}
       </main>
       <IntroPage />
     </div>

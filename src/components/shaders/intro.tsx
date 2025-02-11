@@ -1,11 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unknown-property */
 import { useFrame } from '@react-three/fiber'
-import { useControls } from 'leva'
 import { Suspense, useRef } from 'react'
 import { DoubleSide, Vector2 } from 'three'
 
-import { getControlsFromUniforms } from '../util'
 import fragmentShader from './glsl/intro/fragment.glsl'
 import vertexShader from './glsl/intro/vertex.glsl'
 
@@ -36,9 +34,6 @@ export default function Intro() {
       value: resolution
     }
   }
-
-  const controls = getControlsFromUniforms(uniforms, shader)
-  useControls('RayMarching', controls)
 
   return (
     <Suspense fallback={null}>
