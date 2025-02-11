@@ -4,23 +4,23 @@
 import { Environment } from '@react-three/drei'
 
 import CanvasWithModel from '~/components/mincanvas/minicanvas'
-import WobblySphere from '~/components/shaders/wobbly'
+import Tet from '~/components/shaders/tet'
 
 import s from './page.module.scss'
 
 export default function Page() {
   return (
     <CanvasWithModel
-      initZoom={1}
+      initZoom={70}
       panel
       className={s.page}
       minDistance={5}
-      useCameraProps={false}
+      cameraPosition={[0, 30, 100]}
     >
-      <WobblySphere />
+      <Tet />
       <Environment files="/textures/environments/autumn_field_1k.hdr" />
       <directionalLight
-        position={[0, 5, 10]}
+        position={[50, 5, 10]}
         castShadow
         receiveShadow
         color="#ffffff"

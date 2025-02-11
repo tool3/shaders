@@ -5,12 +5,13 @@ import { usePathname } from 'next/navigation'
 import React from 'react'
 
 import styles from './page.module.scss'
+import Intro from './shaders/intro/page'
 
 const Navbar: React.FC = () => {
   const path = usePathname()
 
   const navItems = [
-    { name: 'Home', path: '/' },
+    { name: '/', path: '/' },
     { name: 'Shaders', path: '/shaders' }
   ]
 
@@ -40,6 +41,7 @@ const Home: React.FC = () => {
       <main className={styles.main}>
         <h1 className={styles.heading}>SHAD3RS</h1>
       </main>
+      <Intro />
     </div>
   )
 }

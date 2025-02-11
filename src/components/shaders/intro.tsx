@@ -1,16 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unknown-property */
-import { useTexture } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useControls } from 'leva'
-import { Suspense, useLayoutEffect, useRef } from 'react'
-import { DoubleSide, Vector2, Vector3 } from 'three'
+import { Suspense, useRef } from 'react'
+import { DoubleSide, Vector2 } from 'three'
 
 import { getControlsFromUniforms } from '../util'
-import fragmentShader from './glsl/raymarching-scene/fragment.glsl'
-import vertexShader from './glsl/raymarching-scene/vertex.glsl'
+import fragmentShader from './glsl/intro/fragment.glsl'
+import vertexShader from './glsl/intro/vertex.glsl'
 
-export default function RayMarchingScene() {
+export default function Intro() {
   const shader = useRef() as any
   const planeRef = useRef() as any
 
@@ -29,39 +28,17 @@ export default function RayMarchingScene() {
     sizes.width * sizes.pixelRatio,
     sizes.height * sizes.pixelRatio
   )
-  const texture = useTexture('/textures/texture.jpg')
+
   const uniforms = {
     uTime: { value: 0 },
     uResolution: {
       max: resolution,
       value: resolution
-    },
-    uTexture: {
-      value: texture.channel
-    },
-    uMouse: {
-      value: new Vector3(0.0, 0.0, 0.0)
     }
   }
 
   const controls = getControlsFromUniforms(uniforms, shader)
   useControls('RayMarching', controls)
-
-  function handleMouse(e: MouseEvent) {
-    const x = e.offsetX / sizes.width
-    const y = 1 - e.offsetY / sizes.height
-    const z = e.buttons === 1 ? 1 : 0
-
-    if (shader.current) {
-      shader.current.uniforms.uMouse.value.x = x
-      shader.current.uniforms.uMouse.value.y = y
-      shader.current.uniforms.uMouse.value.z = z
-    }
-  }
-
-  useLayoutEffect(() => {
-    addEventListener('pointermove', handleMouse)
-  }, [])
 
   return (
     <Suspense fallback={null}>

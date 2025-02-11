@@ -2,17 +2,23 @@
 import { useFrame } from '@react-three/fiber'
 import { useControls } from 'leva'
 import { useEffect, useRef } from 'react'
-import { Color, MeshPhysicalMaterial } from 'three'
+import { Color, MeshPhysicalMaterial, Vector2 } from 'three'
 import CustomShaderMaterial from 'three-custom-shader-material'
 import { mergeVertices } from 'three-stdlib'
 
 import { getControlsFromUniforms } from '../util'
-import fragmentShader from './glsl/gears/fragment.glsl'
-import vertexShader from './glsl/gears/vertex.glsl'
+import fragmentShader from './glsl/tet/fragment.glsl'
+import vertexShader from './glsl/tet/vertex.glsl'
 
-export default function Gears() {
+export default function Tet() {
   const shader = useRef() as any
   const icohedron = useRef() as any
+
+  const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight,
+    pixelRatio: Math.min(window.devicePixelRatio, 2)
+  }
 
   const materialProps = useControls({
     metalness: { value: 0, min: 0, max: 1 },
@@ -24,16 +30,24 @@ export default function Gears() {
     transparent: true
   })
 
+  const resolution = new Vector2(
+    sizes.width * sizes.pixelRatio,
+    sizes.height * sizes.pixelRatio
+  )
+
   const uniforms = {
     uTime: { value: 0 },
-    uTimeFrequency: { value: 0.4 },
-    uPositionFrequency: { value: 0.5 },
-    uStrength: { value: 0.3 },
-    uWarpTimeFrequency: { value: 0.12 },
-    uWarpPositionFrequency: { value: 0.38 },
-    uWarpStrength: { value: 1.7 },
-    uColorA: { value: new Color('#0000ff') },
-    uColorB: { value: new Color('#ff0000') }
+    uColor: { value: new Color('#ff794d') },
+    uShadowColor: { value: new Color('#8e19b8') },
+    uLightColor: { value: new Color('#e5ffe0') },
+    uLightRepititions: { value: 250.0, min: 10.0, max: 300.0 },
+    uShadowRepititions: { value: 200.0, min: 10.0, max: 300.0 },
+    uResolution: {
+      max: sizes.width * sizes.pixelRatio,
+      value: resolution
+    },
+    uColorA: { value: new Color('#ffffff') },
+    uColorB: { value: new Color('#484646') }
   }
 
   useEffect(() => {
@@ -44,7 +58,7 @@ export default function Gears() {
   }, [icohedron])
 
   const controls = getControlsFromUniforms(uniforms, shader)
-  useControls('WobblySphere', controls)
+  useControls('Tet', controls)
 
   useFrame(({ clock }) => {
     const elapsedTime = clock.getElapsedTime()
@@ -52,8 +66,13 @@ export default function Gears() {
   })
 
   return (
-    <mesh ref={icohedron} castShadow receiveShadow>
-      <icosahedronGeometry args={[2.5, 128]} />
+    <mesh
+      ref={icohedron}
+      castShadow
+      receiveShadow
+      rotation={[Math.PI, Math.PI, 0]}
+    >
+      <coneGeometry args={[5, 8, 3, 1]} />
       <CustomShaderMaterial
         ref={shader}
         uniforms={uniforms}
