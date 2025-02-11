@@ -17,7 +17,8 @@
   height: 64px;
   align-items: center;
   z-index: 1;
-  position: relative;
+  position: fixed;
+  top: 0;
 }
 
 .navItem {
@@ -31,8 +32,9 @@
 }
 
 .navItem:hover {
-  color: white;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.1);
+  text-shadow: 0 0 5px black;
+  backdrop-filter: blur(10px);
 }
 
 .active {
@@ -49,9 +51,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 64px);
   position: relative;
   z-index: 1;
+  top: 50%;
 }
 
 .heading {

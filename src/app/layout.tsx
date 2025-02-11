@@ -13,6 +13,7 @@ import dynamic from 'next/dynamic'
 
 import { AppHooks } from './app-hooks'
 import { Providers } from './providers'
+import { Navbar } from './page'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' })
 
@@ -51,6 +52,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <body className={inter.variable}>
+        <Navbar />
         <Providers>
           {children}
           {isDev && <GridDebugger />}

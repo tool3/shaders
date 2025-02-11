@@ -7,7 +7,7 @@ import React from 'react'
 import styles from './page.module.scss'
 import Intro from './shaders/intro/page'
 
-const Navbar: React.FC = () => {
+export const Navbar: React.FC = () => {
   const path = usePathname()
 
   const navItems = [
@@ -15,8 +15,15 @@ const Navbar: React.FC = () => {
     { name: 'Shaders', path: '/shaders' }
   ]
 
+  const currentPage = path.split('/')[2]
+
+  const exists = navItems.some((item) => item.name === currentPage)
+  if (currentPage && !exists) {
+    navItems.push({ name: `- ${currentPage}`, path: '/shaders/' })
+  }
+
   return (
-    <nav className={styles.navbar}>
+    <div className={styles.navbar}>
       <div className={styles.navContainer}>
         {navItems.map((item) => (
           <Link
@@ -30,14 +37,13 @@ const Navbar: React.FC = () => {
           </Link>
         ))}
       </div>
-    </nav>
+    </div>
   )
 }
 
 const Home: React.FC = () => {
   return (
     <div className={styles.pageContainer}>
-      <Navbar />
       <main className={styles.main}>
         <h1 className={styles.heading}>SHAD3RS</h1>
       </main>
