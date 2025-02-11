@@ -37,17 +37,16 @@ export default function Tet() {
 
   const uniforms = {
     uTime: { value: 0 },
-    uColor: { value: new Color('#ff794d') },
-    uShadowColor: { value: new Color('#8e19b8') },
-    uLightColor: { value: new Color('#e5ffe0') },
+    uColorA: { value: new Color('#fc42f0') },
+    uColorB: { value: new Color('#4259ef') },
+    uAccent: { value: new Color('#80ded7') },
     uLightRepititions: { value: 250.0, min: 10.0, max: 300.0 },
     uShadowRepititions: { value: 200.0, min: 10.0, max: 300.0 },
     uResolution: {
       max: sizes.width * sizes.pixelRatio,
       value: resolution
     },
-    uColorA: { value: new Color('#ffffff') },
-    uColorB: { value: new Color('#484646') }
+
   }
 
   useEffect(() => {
