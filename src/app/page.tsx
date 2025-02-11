@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 
+import IntroPage from '../components/intro/intro'
 import styles from './page.module.scss'
-import Intro from './shaders/intro/page'
 
 export const Navbar: React.FC = () => {
   const path = usePathname()
@@ -47,7 +47,7 @@ const Home: React.FC = () => {
       <main className={styles.main}>
         <h1 className={styles.heading}>SHAD3RS</h1>
       </main>
-      <Intro />
+      <IntroPage />
     </div>
   )
 }
