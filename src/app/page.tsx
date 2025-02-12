@@ -29,9 +29,8 @@ export const Navbar: React.FC = () => {
           <Link
             key={item.name}
             href={item.path}
-            className={`${styles.navItem} ${
-              path === item.path ? styles.active : ''
-            }`}
+            className={`${styles.navItem} ${path === item.path ? styles.active : ''
+              }`}
           >
             {item.name}
           </Link>
@@ -45,7 +44,25 @@ const Home: React.FC = () => {
   return (
     <div className={styles.pageContainer}>
       <main className={styles.main}>
-        <h1 className={styles.heading}>SHAD3RS</h1>
+        <h1 className={styles.heading}>
+          <svg viewBox="0 0 300 .1" className={styles.svg}>
+            <text x="12" className={styles.text}>
+              SHAD3RS
+            </text>
+          </svg>
+          <svg viewBox="0 0 300 .1">
+            <filter id="noise-filter">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="5.5"
+                numOctaves="3"
+                stitchTiles="stitch"
+                result="noise"
+              />
+              <feComposite operator="out" in="SourceGraphic" />
+            </filter>
+          </svg>
+        </h1>
         {/* <h6 className={styles.subheading}>by Tal Hayut</h6> */}
       </main>
       <IntroPage />

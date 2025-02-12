@@ -38,15 +38,12 @@ export default function Tet() {
   const uniforms = {
     uTime: { value: 0 },
     uColorA: { value: new Color('#fc42f0') },
-    uColorB: { value: new Color('#4259ef') },
-    uAccent: { value: new Color('#80ded7') },
-    uLightRepititions: { value: 250.0, min: 10.0, max: 300.0 },
-    uShadowRepititions: { value: 200.0, min: 10.0, max: 300.0 },
+    uColorB: { value: new Color('#0070ff') },
+    uAccent: { value: new Color('#ff8600') },
     uResolution: {
       max: sizes.width * sizes.pixelRatio,
       value: resolution
-    },
-
+    }
   }
 
   useEffect(() => {
@@ -69,6 +66,7 @@ export default function Tet() {
       ref={icohedron}
       castShadow
       receiveShadow
+      position={[0, -1, 0]}
       rotation={[Math.PI, Math.PI, 0]}
     >
       <coneGeometry args={[5, 8, 3, 1]} />
