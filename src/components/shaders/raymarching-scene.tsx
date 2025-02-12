@@ -3,8 +3,10 @@
 import { useTexture } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useControls } from 'leva'
-import { Suspense, useLayoutEffect, useRef } from 'react'
+import { Suspense, useRef } from 'react'
 import { DoubleSide, Vector2, Vector3 } from 'three'
+
+import useMouse from '~/hooks/use-mouse'
 
 import { getControlsFromUniforms } from '../util'
 import fragmentShader from './glsl/raymarching-scene/fragment.glsl'
@@ -47,21 +49,7 @@ export default function RayMarchingScene() {
   const controls = getControlsFromUniforms(uniforms, shader)
   useControls('RayMarching', controls)
 
-  function handleMouse(e: MouseEvent) {
-    const x = e.offsetX / sizes.width
-    const y = 1 - e.offsetY / sizes.height
-    const z = e.buttons === 1 ? 1 : 0
-
-    if (shader.current) {
-      shader.current.uniforms.uMouse.value.x = x
-      shader.current.uniforms.uMouse.value.y = y
-      shader.current.uniforms.uMouse.value.z = z
-    }
-  }
-
-  useLayoutEffect(() => {
-    addEventListener('pointermove', handleMouse)
-  }, [])
+  useMouse(shader, true)
 
   return (
     <Suspense fallback={null}>

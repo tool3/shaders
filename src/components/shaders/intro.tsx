@@ -6,6 +6,7 @@ import { DoubleSide, Vector2 } from 'three'
 
 import fragmentShader from './glsl/intro/fragment.glsl'
 import vertexShader from './glsl/intro/vertex.glsl'
+import useMouse from '~/hooks/use-mouse'
 
 export default function Intro() {
   const shader = useRef() as any
@@ -32,8 +33,13 @@ export default function Intro() {
     uResolution: {
       max: resolution,
       value: resolution
+    },
+    uMouse: {
+      value: new Vector2(0.0, 0.0)
     }
   }
+
+  useMouse(shader, true)
 
   return (
     <Suspense fallback={null}>

@@ -63,21 +63,19 @@
   font-weight: bold;
   color: white;
   font-family: Grotesque;
-  
 }
 
 .svg {
   height: 7rem;
   width: 25rem;
-//   backdrop-filter: blur(10px);
 }
 
 .text {
   font-family: Grotesque;
   backdrop-filter: blur(5px);
-  filter: brightness(150%) url('#noise-filter');
-  fill: rgb(255, 255, 255, 1.0);
-  text-shadow: 0 0 2px #000;
+  filter: url('#noise-filter');
+  fill: rgb(255, 255, 255, 1);
+//   text-shadow: 0 0 2px #000;
 }
 
 #noise-filter {

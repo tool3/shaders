@@ -2,6 +2,7 @@ uniform vec2 uResolution;
 varying vec3 vColor;
 varying vec3 vPosition;
 uniform float uTime;
+uniform vec2 uMouse;
 
 #pragma glslify: cnoise = require(../noise/perlin3D.glsl);
 #pragma glslify: random2D = require(../noise/random2D.glsl);
@@ -132,6 +133,7 @@ void main() {
     vec3 baseThird = vec3(232.0 / 255.0, 201.0 / 255.0, 73.0 / 255.0);
 
     vec3 positionUv = vPosition;
+    positionUv.xy += uMouse.xy;
 
     float baseN = random2D(positionUv.xy + uTime);
     float n = simplex4D(vec4(positionUv + uTime * 0.1, 1.0));
