@@ -164,7 +164,7 @@ export default function ImageParticles() {
   useControls('ParticleImage', controls)
   useControls({
     image: {
-      value: '/images/image-particles/a.JPG',
+      value: '/images/image-particles/h.JPG',
       options: {
         a: '/images/image-particles/a.JPG',
         b: '/images/image-particles/b.JPG',

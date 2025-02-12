@@ -14,7 +14,7 @@ export default function Page() {
       initZoom={0.5}
       panel
       className={s.page}
-      minDistance={5}
+      minDistance={3}
       useCameraProps={false}
     >
       <WobblySphere />
