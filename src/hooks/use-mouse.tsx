@@ -14,7 +14,6 @@ export default function useMouse(
     const x = e.offsetX / sizes.width
     const y = 1 - e.offsetY / sizes.height
     const z = useClick ? (e.buttons === 1 ? 1 : 0) : true
-
     if (ref?.current?.uniforms && z) {
       ref.current.uniforms.uMouse.value.x = x
       ref.current.uniforms.uMouse.value.y = y
