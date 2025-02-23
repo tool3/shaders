@@ -118,7 +118,7 @@ vec3 drops(vec2 uv) {
 
 void main() {
     // BASIC SETUP
-    vec2 uv = vPosition.xy;
+    vec2 uv = vPosition.xz;
     vec3 color = vec3(0);
 
     #if DEBUG

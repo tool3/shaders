@@ -133,7 +133,7 @@ void main() {
     vec3 baseThird = vec3(232.0 / 255.0, 201.0 / 255.0, 73.0 / 255.0);
 
     vec3 positionUv = vPosition;
-    positionUv.xy += uMouse.xy;
+    positionUv.xy += uMouse.xy * 0.8;
 
     float baseN = random2D(positionUv.xy + uTime);
     float n = simplex4D(vec4(positionUv + uTime * 0.1, 1.0));

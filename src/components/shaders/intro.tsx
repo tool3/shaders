@@ -4,9 +4,10 @@ import { useFrame } from '@react-three/fiber'
 import { Suspense, useRef } from 'react'
 import { DoubleSide, Vector2 } from 'three'
 
+import useMouse from '~/hooks/use-mouse'
+
 import fragmentShader from './glsl/intro/fragment.glsl'
 import vertexShader from './glsl/intro/vertex.glsl'
-import useMouse from '~/hooks/use-mouse'
 
 export default function Intro() {
   const shader = useRef() as any

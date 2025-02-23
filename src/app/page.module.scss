@@ -55,6 +55,9 @@
   position: relative;
   z-index: 1;
   top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: min-content;
 }
 
 .heading {
@@ -63,6 +66,9 @@
   font-weight: bold;
   color: white;
   font-family: Grotesque;
+
+  pointer-events: none;
+  user-select: none;
 }
 
 .svg {

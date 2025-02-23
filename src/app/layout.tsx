@@ -3,23 +3,17 @@ import '~/css/global.scss'
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 
-import { isDev, siteURL } from '~/lib/constants'
-
-const GridDebugger = dynamic(() => import('~/lib/debug/grid-debugger'), {
-  ssr: false
-})
-
-import dynamic from 'next/dynamic'
+import { siteURL } from '~/lib/constants'
 
 import { AppHooks } from './app-hooks'
-import { Providers } from './providers'
 import { Navbar } from './page'
+import { Providers } from './providers'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' })
 
 export const metadata: Metadata = {
   title: {
-    default: 'Shader Lab | Tal Hayut',
+    default: 'Shaders | Tal Hayut',
     template: '%s | Tal Hayut'
   },
   metadataBase: siteURL,
@@ -33,9 +27,9 @@ export const metadata: Metadata = {
   manifest: '/manifest.webmanifest',
   twitter: {
     card: 'summary_large_image',
-    title: 'shad3rlab',
+    title: 'shad3rs',
     creator: 'talhayut',
-    siteId: 'shad3rlab'
+    siteId: 'shad3rs'
   }
 }
 
@@ -56,7 +50,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <Navbar />
         <Providers>
           {children}
-          {isDev && <GridDebugger />}
           <AppHooks />
         </Providers>
       </body>

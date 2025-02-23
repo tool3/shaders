@@ -37,7 +37,7 @@ export default function Grid() {
 
   return (
     <Suspense fallback={null}>
-      <mesh>
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
         <planeGeometry ref={planeRef} args={[10, 10, 1, 1]} />
         <shaderMaterial
           attach="material"
