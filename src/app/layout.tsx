@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-body' })
 
 export const metadata: Metadata = {
   title: {
-    default: 'Shaders | Tal Hayut',
+    default: 'Shad3rs | Tal Hayut',
     template: '%s | Tal Hayut'
   },
   metadataBase: siteURL,
