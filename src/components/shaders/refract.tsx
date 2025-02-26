@@ -6,10 +6,10 @@ import { DoubleSide, Vector2 } from 'three'
 
 import useMouse from '~/hooks/use-mouse'
 
-import fragmentShader from './glsl/intro/fragment.glsl'
-import vertexShader from './glsl/intro/vertex.glsl'
+import fragmentShader from './glsl/refract/fragment.glsl'
+import vertexShader from './glsl/refract/vertex.glsl'
 
-export default function Intro({ cursor = true }: { cursor: boolean }) {
+export default function Refract() {
   const shader = useRef() as any
   const planeRef = useRef() as any
 
@@ -21,9 +21,7 @@ export default function Intro({ cursor = true }: { cursor: boolean }) {
 
   useFrame(({ clock }) => {
     const elapsedTime = clock.getElapsedTime()
-    if (shader.current) {
-      shader.current.uniforms.uTime.value = elapsedTime
-    }
+    if (shader.current) shader.current.uniforms.uTime.value = elapsedTime
   })
 
   const resolution = new Vector2(
@@ -33,6 +31,9 @@ export default function Intro({ cursor = true }: { cursor: boolean }) {
 
   const uniforms = {
     uTime: { value: 0 },
+    uTexture: {
+      value: null
+    },
     uResolution: {
       max: resolution,
       value: resolution
@@ -42,7 +43,7 @@ export default function Intro({ cursor = true }: { cursor: boolean }) {
     }
   }
 
-  cursor && useMouse(shader, true)
+  useMouse(shader, true)
 
   return (
     <Suspense fallback={null}>
