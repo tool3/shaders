@@ -5,7 +5,7 @@ import Intro from '~/components/shaders/intro'
 
 import s from './intro.module.scss'
 
-export default function IntroPage({ cursor = true }: { cursor: boolean }) {
+export default function IntroPage({ cursor = true }: { cursor?: boolean }) {
   return (
     <CanvasWithModel
       className={s.canvas}

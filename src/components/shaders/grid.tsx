@@ -2,10 +2,12 @@
 /* eslint-disable react/no-unknown-property */
 import { useFrame } from '@react-three/fiber'
 import { Suspense, useRef } from 'react'
-import { DoubleSide, Vector2 } from 'three'
+import { Color, DoubleSide, Vector2 } from 'three'
 
 import fragmentShader from './glsl/grid/fragment.glsl'
 import vertexShader from './glsl/grid/vertex.glsl'
+import { getControlsFromUniforms } from '../util'
+import { useControls } from 'leva'
 
 export default function Grid() {
   const shader = useRef() as any
@@ -29,16 +31,20 @@ export default function Grid() {
 
   const uniforms = {
     uTime: { value: 0 },
+    uColor: { value: new Color('#00ff23') },
     uResolution: {
       max: resolution,
       value: resolution
     }
   }
 
+  const controls = getControlsFromUniforms(uniforms, shader)
+  useControls('Grid', controls)
+
   return (
     <Suspense fallback={null}>
       <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <planeGeometry ref={planeRef} args={[10, 10, 1, 1]} />
+        <planeGeometry ref={planeRef} args={[50, 50, 1, 1]} />
         <shaderMaterial
           attach="material"
           ref={shader}

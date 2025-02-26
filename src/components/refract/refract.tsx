@@ -9,10 +9,10 @@ export default function IntroPage() {
   return (
     <CanvasWithModel
       className={s.canvas}
-      // orbitEnabled={false}
-      initZoom={5}
+      orbitEnabled={false}
+      initZoom={3}
       useCameraProps={false}
-      allowControls={false}
+      panel
     >
       <Refract />
     </CanvasWithModel>

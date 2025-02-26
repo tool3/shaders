@@ -5,7 +5,7 @@ import Grid from '~/components/shaders/grid'
 
 export default function Page() {
   return (
-    <CanvasWithModel initZoom={5} useCameraProps={false}>
+    <CanvasWithModel initZoom={15} panel cameraPosition={[0, 50, 0]}>
       <Grid />
     </CanvasWithModel>
   )

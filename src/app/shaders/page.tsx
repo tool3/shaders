@@ -12,6 +12,7 @@ export default function Page() {
     'wobbly-sphere',
     'halftone',
     'tet',
+    'grid',
     'intro',
     'trippy',
     'raymarching',

@@ -1,7 +1,7 @@
 uniform vec2 uResolution;
+uniform vec3 uColor;
 uniform float uTime;
 
-varying vec3 vColor;
 varying vec3 vPosition;
 
 #define DEBUG 0
@@ -54,11 +54,11 @@ vec3 drops(vec2 uv) {
     vec3 color = vec3(0);
     float hash_cnt = 0.;
     // GRID
-    float grid_size = 20.;
-    vec2 g = cos(grid_size * (1. + uv) * PI);
-    // vec2 g = cos(grid_size * (1. + uv));
+    float grid_size = 80.;
+    // vec2 g = cos(grid_size * (uv * 2.0) * PI);
+    vec2 g = cos(grid_size * (1.0 + uv) * PI);
     float grid = smoothstep(0.98, 0.99, max(g.x, g.y));
-    grid += (.0001 / (1.5 + max(g.x, g.y)) + grid * (40. / 255.) * hash(vec3(uv, 0.)));
+    grid += (.0001 / (1.5 + max(g.x, g.y)) + grid * (grid_size / 255.) * hash(vec3(uv, 0.)));
 
     // MASKS
     vec2 mask_uv = abs(uv);
@@ -74,11 +74,11 @@ vec3 drops(vec2 uv) {
         float time_offset = hash(vec3(anim_instance, 1., hash_cnt++));
         float speed_offset = hash(vec3(anim_instance, 1., hash_cnt++));
 
-        float speed = 0.25 * mix(0.8, 1.2, speed_offset);
+        float speed = sin(0.1 * mix(0.2, 2.0, speed_offset));
 
         float t = speed * uTime + time_offset;
-        float drop_cycle = fract(t * 0.5);
-        float drop_instance = floor(t * 0.5);
+        float drop_cycle = fract(t );
+        float drop_instance = floor(t);
 
         // COLOR
         // vec3 L = normalize(vec3(1));
@@ -86,17 +86,22 @@ vec3 drops(vec2 uv) {
         // vec3 V = cross(L, U);
         // float hue = 2. * PI * hash(vec3(drop_instance, anim_instance, hash_cnt++));
         // vec3 pulse_color = clamp(.5 * L + U * cos(hue) + V * sin(hue), 0., 1.);
-        vec3 pulse_color = vec3(0.0, 1.0, 0.0);
+        vec3 pulse_color = uColor;
 
         // PULSE
         // vec2 pos = vec2(-.5 + hash(vec3(drop_instance, 1., hash_cnt++)), -.5 + hash(vec3(drop_instance, 1., hash_cnt++)));
         vec2 pos = vec2(0.0);
-        vec2 p = 1.0 - cos(uv + pos);
-        float pulse_tail_len = 0.9;
-        float f = (p.x + p.y) - (pulse_tail_len + 2. * sqrt(2.)) * drop_cycle;
+        // vec2 p = abs(uv - pos);
+        // vec2 p = vec2(length(abs(uv - pos)));
+        // vec2 p = abs(uv - pos) - vec2(3.0, 1.0);
+        // vec2 p = vec2(max(abs(uv.x - pos.x), abs(uv.y - pos.y)));
+        vec2 p = vec2(max(abs(uv.x - pos.x), abs(uv.y - pos.y)));
+
+        float pulse_tail_len = 2.0;
+        float f = (p.x + p.y) - (pulse_tail_len + 2. * sqrt(1.)) * drop_cycle;
         float pulse = max(1. - abs(f) / pulse_tail_len, 0.) * exp(-abs(f)) / (0.001 + 100. * abs(f));
 
-        pulse_color = mix(pulse_color, vec3(1), 0.1 * smoothstep(0.9, .95, pulse));
+        pulse_color = mix(pulse_color, vec3(1), 0.1 * smoothstep(0.8, .95, pulse));
 
         pulse = mix(pulse, pulse * smoothstep(0.01, 0.00, f), .8);
 
@@ -107,7 +112,7 @@ vec3 drops(vec2 uv) {
 
     //color += 0.1*grid;
     color *= mix(0.0, 1., disc_mask);
-    color *= square_mask;
+    color *= disc_mask;
 
     #if DEBUG
     color += circle;
@@ -147,13 +152,16 @@ void main() {
     float t = -ro.y / rd.y;
     if(t > 0.) {
         vec3 ray_hit_pos = ro + t * rd;
-        color = drops(.1 * ray_hit_pos.xz);
+        color = drops(.005 * ray_hit_pos.xz);
     } else {
         gl_FragColor = vec4(0, 0, 0, 1);
         return;
     }
 
     color = sqrt(tanh(color * color));
-    color = sRGBencode(color);
     gl_FragColor = vec4(color, 1);
+
+
+    #include <tonemapping_fragment>
+    #include <colorspace_fragment>
 }

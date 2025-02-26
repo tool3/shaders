@@ -31,10 +31,10 @@ void main() {
     vec2 uv = (gl_FragCoord.xy * 2.0 - uResolution.xy) / uResolution.y;
 
     // init
-    vec3 baseFirst = vec3(120.0 / 255.0, 158.0 / 255.0, 113.0 / 255.0);
+    vec3 baseFirst = vec3(240.0 / 255.0, 0.0 / 255.0, 255.0 / 255.0);
     vec3 accent = vec3(0.0, 0.0, 0.1);
-    vec3 baseSecond = vec3(233.0 / 255.0, 12.0 / 255.0, 23.0 / 255.0);
-    vec3 baseThird = vec3(246.0 / 255.0, 118.0 / 255.0, 81.0 / 255.0);
+    vec3 baseSecond = vec3(77.0 / 255.0, 238.0 / 255.0, 234.0 / 255.0);
+    vec3 baseThird = vec3(240.0 / 255.0, 0.0 / 255.0, 255.0 / 255.0);
 
     vec2 a = fract(uv - .5);
     a *= 20.0;
@@ -44,9 +44,9 @@ void main() {
 
     float baseN = random2D(positionUv.xy + uTime);
     float n = simplex4D(vec4(positionUv + uTime * 0.1, 1.0));
-    // float n2 = mix(n, baseN, 0.1);
+    float n2 = mix(n, baseN, 0.1);
 
-    vec2 baseUv = rot2D(n * 0.5) * positionUv.xy * 0.1;
+    vec2 baseUv = rot2D(n * .5) * positionUv.xy * 0.05;
     float basePattern = lines(baseUv, 0.8);
     float secondPattern = lines(baseUv, 0.3);
 
@@ -56,14 +56,14 @@ void main() {
     // color
     vec3 col = vec3(1.0);
 
-    vec2 uvRandom = uv;
+    vec2 uvRandom = uv.xy * n;
     uvRandom.y *= random(vec2(uvRandom.y, 0.4));
-    col.rgb += random(uvRandom);
+    // col.rgb += random(uvRandom);
 
     col = mix(col, secondBaseColor, 0.9);
     float iorRatio = 1.0 / 1.305;
     
-    vec3 refractVec = refract(vPos, vNormal, iorRatio);
+    vec3 refractVec = refract(vPosition, vNormal, iorRatio);
 
     vec4 color = texture2D(uTexture, fract(a) + fract(refractVec.xy));
 
@@ -71,6 +71,8 @@ void main() {
     // col2 = mix(col2, color.xyz , 0.8);
 
     col = mix(col2, col, 0.9);
+    col += mix(refractVec * 0.01, col, smoothstep(0.0, 1.0, 0.5));
+    // col *= refractVec.xyz;
 
     gl_FragColor = vec4(col, 1.0);
 
