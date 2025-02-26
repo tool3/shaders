@@ -139,7 +139,7 @@ void main() {
     float n = simplex4D(vec4(positionUv + uTime * 0.1, 1.0));
     // float n2 = mix(n, baseN, 0.1);
 
-    vec2 baseUv = rot2D(-n * 2.0) * positionUv.xy * 0.1;
+    vec2 baseUv = rot2D(-n * 2.0) * positionUv.xy * 0.05;
     float basePattern = lines(baseUv, 0.5);
     float secondPattern = lines(baseUv, 0.3);
 
