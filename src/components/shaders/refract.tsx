@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unknown-property */
 import { useFrame } from '@react-three/fiber'
+import { useControls } from 'leva'
 import { Suspense, useRef } from 'react'
-import { DoubleSide, Vector2 } from 'three'
+import { Color, DoubleSide, Vector2 } from 'three'
 
-import useMouse from '~/hooks/use-mouse'
-
+import { getControlsFromUniforms } from '../util'
 import fragmentShader from './glsl/refract/fragment.glsl'
 import vertexShader from './glsl/refract/vertex.glsl'
 
@@ -31,19 +31,18 @@ export default function Refract() {
 
   const uniforms = {
     uTime: { value: 0 },
-    uTexture: {
-      value: null
-    },
+    uColorA: { value: new Color('#ff00ff') },
+    uColorB: { value: new Color('#a6ffff') },
+    uAccent: { value: new Color('#000000') },
+    uZoom: { value: 0.1, min: 0.01, max: 1.0 },
     uResolution: {
       max: resolution,
       value: resolution
-    },
-    uMouse: {
-      value: new Vector2(0.0, 0.0)
     }
   }
 
-  useMouse(shader, true)
+  const controls = getControlsFromUniforms(uniforms, shader)
+  useControls('Refract', controls)
 
   return (
     <Suspense fallback={null}>

@@ -1,11 +1,15 @@
 uniform vec2 uResolution;
+uniform vec3 uColorA;
+uniform vec3 uColorB;
+uniform vec3 uAccent;
+uniform float uZoom;
+uniform float uTime;
+uniform vec2 uMouse;
 uniform sampler2D uTexture;
 varying vec3 vColor;
 varying vec3 vPosition;
 varying vec3 vPos;
 varying vec3 vNormal;
-uniform float uTime;
-uniform vec2 uMouse;
 
 #pragma glslify: cnoise = require(../noise/perlin3D.glsl);
 #pragma glslify: random2D = require(../noise/random2D.glsl);
@@ -27,14 +31,22 @@ float random(in vec2 _st) {
         43758.5453123);
 }
 
+float smin(float a, float b, float k) {
+    float h = max(k - abs(a - b), 0.0) / k;
+    return min(a, b) - h * h * h * k * (1.0 / 6.0);
+}
+
+float noise(vec2 p) {
+    return fract(sin(p.x * 100.0 + p.y * 6574.0) * 5647.0);
+}
+
 void main() {
     vec2 uv = (gl_FragCoord.xy * 2.0 - uResolution.xy) / uResolution.y;
-
+    // uv.x += uTime * 0.1;
     // init
-    vec3 baseFirst = vec3(240.0 / 255.0, 0.0 / 255.0, 255.0 / 255.0);
-    vec3 accent = vec3(0.0, 0.0, 0.1);
-    vec3 baseSecond = vec3(77.0 / 255.0, 238.0 / 255.0, 234.0 / 255.0);
-    vec3 baseThird = vec3(240.0 / 255.0, 0.0 / 255.0, 255.0 / 255.0);
+    vec3 accent = uAccent;
+    vec3 baseFirst = uColorA;
+    vec3 baseSecond = uColorB;
 
     vec2 a = fract(uv - .5);
     a *= 20.0;
@@ -44,11 +56,14 @@ void main() {
 
     float n = simplex4D(vec4(positionUv + uTime * 0.1, 1.0));
 
-    float zoom = 0.1;
-    vec2 baseUv = rot2D(n * .5) * positionUv.xy * zoom;
+    float zoom = uZoom;
+    vec2 baseUv = rot2D(n * .3) * positionUv.xy * zoom;
     float basePattern = lines(baseUv, 0.8);
     float secondPattern = lines(baseUv, 0.3);
 
+    // baseFirst *= noise(vPosition.xy);
+    // baseSecond *= noise(vPosition.xy);
+    // accent *= noise(vPosition.xy);
     vec3 baseColor = mix(baseSecond, baseFirst, basePattern);
     vec3 secondBaseColor = mix(baseColor, accent, secondPattern);
     // color
@@ -62,6 +77,7 @@ void main() {
     vec3 refractVec = refract(vPosition, vNormal, iorRatio);
 
     col = mix(col2, col, 0.8);
+
     col += mix(refractVec.z, col.r, 0.7);
     col += mix(refractVec.x, col.r, 0.3);
     col += mix(refractVec.y, col.r, 0.1);
