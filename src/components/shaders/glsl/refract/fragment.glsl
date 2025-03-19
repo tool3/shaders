@@ -54,10 +54,10 @@ void main() {
     vec3 positionUv = vPosition;
     // positionUv.z /+= 3.0;
 
-    float n = simplex4D(vec4(positionUv + uTime * 0.1, 1.0));
+    float n = simplex4D(vec4(positionUv + uTime * 0.2, 1.0));
 
     float zoom = uZoom;
-    vec2 baseUv = rot2D(n * .3) * positionUv.xy * zoom;
+    vec2 baseUv = rot2D(n * 0.2) * positionUv.xy * zoom;
     float basePattern = lines(baseUv, 0.8);
     float secondPattern = lines(baseUv, 0.3);
 

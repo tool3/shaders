@@ -5,15 +5,16 @@ import s from './page.module.scss'
 
 export default function Page() {
   const shaders = [
-    'displacement',
-    'displacement-shading',
+    'wobbly-sphere',
     'holographic',
     'image-particles',
-    'wobbly-sphere',
     'halftone',
     'tet',
     'grid',
     'intro',
+    'displacement',
+    'displacement-shading',
+    'refract',
     'trippy',
     'raymarching',
     'raymarching-orbit',
