@@ -15,6 +15,7 @@ const shaders = [
   'grid',
   'gears',
   'intro',
+  'procedural-terrain',
   'refract',
   'displacement',
   'displacement-shading',
