@@ -13,6 +13,7 @@ const shaders = [
   'halftone',
   'tet',
   'grid',
+  'gears',
   'intro',
   'refract',
   'displacement',

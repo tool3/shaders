@@ -3,7 +3,12 @@ import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useControls } from 'leva'
 import { useMemo, useRef } from 'react'
-import { Color, DoubleSide, MeshPhysicalMaterial, MeshStandardMaterial } from 'three'
+import {
+  Color,
+  DoubleSide,
+  MeshPhysicalMaterial,
+  MeshStandardMaterial
+} from 'three'
 import CustomShaderMaterial from 'three-custom-shader-material'
 
 import { getControlsFromUniforms } from '../util'
