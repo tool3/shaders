@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unknown-property */
 import { useFrame } from '@react-three/fiber'
+import { useControls } from 'leva'
 import { Suspense, useRef } from 'react'
-import { DoubleSide, Vector2 } from 'three'
+import { Color, DoubleSide, Vector2 } from 'three'
 
-import useMouse from '~/hooks/use-mouse'
-
+import { getControlsFromUniforms } from '../util'
 import fragmentShader from './glsl/intro/fragment.glsl'
 import vertexShader from './glsl/intro/vertex.glsl'
 
-export default function Intro({ cursor = true }: { cursor: boolean }) {
+export default function Intro() {
   const shader = useRef() as any
   const planeRef = useRef() as any
 
@@ -39,10 +39,16 @@ export default function Intro({ cursor = true }: { cursor: boolean }) {
     },
     uMouse: {
       value: new Vector2(0.0, 0.0)
-    }
+    },
+    uColorA: { value: new Color(120.0 / 255.0, 158.0 / 255.0, 113.0 / 255.0) },
+    uColorB: { value: new Color(224.0 / 255.0, 148.0 / 255.0, 66.0 / 255.0) },
+    uAccent: { value: new Color(0, 0, 0) }
   }
 
-  cursor && useMouse(shader, true)
+  const controls = getControlsFromUniforms(uniforms, shader)
+  useControls('Intro', controls)
+
+  // cursor && useMouse(shader, true)
 
   return (
     <Suspense fallback={null}>

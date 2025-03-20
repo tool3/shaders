@@ -1,33 +1,41 @@
+'use client'
+
+import { motion } from 'motion/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import s from './page.module.scss'
 
-export default function Page() {
-  const shaders = [
-    'wobbly-sphere',
-    'holographic',
-    'image-particles',
-    'halftone',
-    'tet',
-    'grid',
-    'intro',
-    'displacement',
-    'displacement-shading',
-    'refract',
-    'trippy',
-    'raymarching',
-    'raymarching-orbit',
-    'raymarching-scene'
-  ]
+const shaders = [
+  'wobbly-sphere',
+  'holographic',
+  'image-particles',
+  'halftone',
+  'tet',
+  'grid',
+  'intro',
+  'refract',
+  'displacement',
+  'displacement-shading',
+  'trippy',
+  'raymarching',
+  'raymarching-orbit',
+  'raymarching-scene'
+]
 
+export default function Page() {
   return (
     <div className={s.grid}>
-      {shaders.map((name, i) => {
-        const path = `/shaders/${name}`
-        return (
-          <Link href={path} key={i} className={s.link}>
-            <div className={s.label}>{name}</div>
+      {shaders.map((name, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: i * 0.05, duration: 0.4 }}
+          className={s.card}
+        >
+          <Link href={`/shaders/${name}`} className={s.link}>
+            <div className={s.overlay} />
             <Image
               priority
               alt={name}
@@ -37,9 +45,10 @@ export default function Page() {
               height={500}
               sizes="100vw"
             />
+            <div className={s.label}>{name.replace(/-/g, ' ')}</div>
           </Link>
-        )
-      })}
+        </motion.div>
+      ))}
     </div>
   )
 }

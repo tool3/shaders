@@ -4,6 +4,10 @@ varying vec3 vPosition;
 uniform float uTime;
 uniform vec2 uMouse;
 
+uniform vec3 uColorA;
+uniform vec3 uColorB;
+uniform vec3 uAccent;
+
 #pragma glslify: cnoise = require(../noise/perlin3D.glsl);
 #pragma glslify: random2D = require(../noise/random2D.glsl);
 #pragma glslify: simplex4D = require(../noise/simplex4D.glsl);
@@ -127,10 +131,13 @@ void main() {
     vec2 uv = (gl_FragCoord.xy * 2.0 - uResolution.xy) / uResolution.y;
 
     // init
-    vec3 baseFirst = vec3(120.0 / 255.0, 158.0 / 255.0, 113.0 / 255.0);
-    vec3 accent = vec3(0.0, 0.0, 0.0);
-    vec3 baseSecond = vec3(224.0 / 255.0, 148.0 / 255.0, 66.0 / 255.0);
-    vec3 baseThird = vec3(232.0 / 255.0, 201.0 / 255.0, 73.0 / 255.0);
+    // vec3 accent = vec3(0.0, 0.0, 0.0);
+    // vec3 baseFirst = vec3(120.0 / 255.0, 158.0 / 255.0, 113.0 / 255.0);
+    // vec3 baseSecond = vec3(224.0 / 255.0, 148.0 / 255.0, 66.0 / 255.0);
+    vec3 accent = uAccent;
+    vec3 baseFirst = uColorA;
+    vec3 baseSecond = uColorB;
+    // vec3 baseThird = vec3(232.0 / 255.0, 201.0 / 255.0, 73.0 / 255.0);
 
     vec3 positionUv = vPosition;
     positionUv.xy += uMouse.xy * 0.8;
