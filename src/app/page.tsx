@@ -1,5 +1,6 @@
 'use client'
 
+import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
@@ -29,8 +30,10 @@ export const Navbar: React.FC = () => {
           <Link
             key={item.name}
             href={item.path}
-            className={`${styles.navItem} ${path === item.path ? styles.active : ''
-              }`}
+            className={clsx(
+              styles.navItem,
+              path === item.path ? styles.active : ''
+            )}
           >
             {item.name}
           </Link>
@@ -65,7 +68,7 @@ const Home: React.FC = () => {
         </h1>
         {/* <h6 className={styles.subheading}>by Tal Hayut</h6> */}
       </main>
-      <IntroPage cursor={false} />
+      <IntroPage />
     </div>
   )
 }
