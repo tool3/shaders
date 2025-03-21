@@ -1,10 +1,12 @@
 /* eslint-disable react/no-unknown-property */
 import { useGLTF } from '@react-three/drei'
+import { useFrame, useThree } from '@react-three/fiber'
 import { useMemo } from 'react'
 import { MeshStandardMaterial } from 'three'
 
 export default function GearsModel(props) {
   const { nodes } = useGLTF('/models/gears.glb') as any
+  const { scene } = useThree()
   const defaultMaterial = useMemo(
     () =>
       new MeshStandardMaterial({
@@ -15,6 +17,9 @@ export default function GearsModel(props) {
       }),
     []
   )
+  console.log('wgat' );
+
+ 
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -32,6 +37,7 @@ export default function GearsModel(props) {
       <mesh
         castShadow
         receiveShadow
+        name={'gears'}
         geometry={nodes.gears.geometry}
         material={defaultMaterial}
         position={[0, 1.595, -0.691]}

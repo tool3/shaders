@@ -17,7 +17,9 @@ import vertexShader from './glsl/gears/vertex.glsl'
 
 export default function Gears() {
   const shader = useRef() as any
-  const { nodes } = useGLTF('/models/gears.glb') as any
+  const gears = useRef() as any
+  const axle = useRef() as any
+  const { nodes } = useGLTF('/models/gears2.glb') as any
   const defaultMaterial = useMemo(
     () =>
       new MeshStandardMaterial({
@@ -59,6 +61,14 @@ export default function Gears() {
   useFrame(({ clock }) => {
     const elapsedTime = clock.getElapsedTime()
     if (shader.current) shader.current.uniforms.uTime.value = elapsedTime
+    if (gears.current) {
+      gears.current.children.forEach((child) => {
+        child.rotation.z = elapsedTime
+      })
+    }
+    if (axle.current) {
+      axle.current.rotation.z = elapsedTime / 2;
+    }
   })
 
   return (
@@ -67,6 +77,7 @@ export default function Gears() {
         castShadow
         receiveShadow
         geometry={nodes.outerHull.geometry}
+        material={nodes.outerHull.material}
         scale={3.714}
       >
         <CustomShaderMaterial
@@ -85,18 +96,39 @@ export default function Gears() {
         receiveShadow
         geometry={nodes.axle.geometry}
         material={defaultMaterial}
+        ref={axle}
       />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.gears.geometry}
-        material={defaultMaterial}
-        position={[0, 1.595, -0.691]}
-        rotation={[-Math.PI, 0, -Math.PI]}
-        scale={[1, 1, 1.016]}
-      />
+      <group ref={gears}>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gears.geometry}
+          material={defaultMaterial}
+          position={[-0.002, 1.584, 0.006]}
+          rotation={[-Math.PI, 0, -Math.PI]}
+          scale={[1, 1, 1.016]}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gears001.geometry}
+          material={defaultMaterial}
+          position={[-1.612, -0.02, 0.005]}
+          rotation={[-Math.PI, 0, -Math.PI]}
+          scale={[1, 1, 1.016]}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gears002.geometry}
+          material={defaultMaterial}
+          position={[-1.161, 1.101, -0.026]}
+          rotation={[-Math.PI, 0, -Math.PI]}
+          scale={[1, 1, 1.016]}
+        />
+      </group>
     </mesh>
   )
 }
 
-useGLTF.preload('/models/gears.glb')
+useGLTF.preload('/models/gears2.glb')
