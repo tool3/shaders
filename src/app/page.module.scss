@@ -136,18 +136,18 @@ $transition-speed: 0.3s;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100vh;
+      height: 0vh;
       background-color: $primary-color;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       opacity: 0;
       transition: opacity $transition-speed ease-in-out;
-      will-change: opacity, display;
+      will-change: opacity, height;
       
       &.visible {
-        display: flex;
         opacity: 1;
+        height: 100vh;
       }
     }
 
