@@ -7,17 +7,11 @@ import Link from 'next/link'
 import s from './page.module.scss'
 
 const shaders = [
-  'wobbly-sphere',
-  'holographic',
-  'image-particles',
-  'halftone',
-  'tet',
-  'grid',
-  'gears',
-  'procedural-terrain',
-  'intro',
-  'displacement',
-  'displacement-shading'
+  'refract',
+  'trippy',
+  'raymarching',
+  'raymarching-orbit',
+  'raymarching-scene'
 ]
 
 export default function Page() {
@@ -31,7 +25,7 @@ export default function Page() {
           transition={{ delay: i * 0.05, duration: 0.4 }}
           className={s.card}
         >
-          <Link href={`/shaders/${name}`} className={s.link}>
+          <Link href={`/glsl/${name}`} className={s.link}>
             <div className={s.overlay} />
             <Image
               priority

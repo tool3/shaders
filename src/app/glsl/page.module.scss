@@ -1,0 +1,69 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.link {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.1);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+.label {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .label {
+  opacity: 1;
+}

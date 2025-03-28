@@ -4,7 +4,7 @@ $primary-color: #121212;
 $accent-color: #1e1e1e;
 $hover-color: #4a4a4a;
 $text-color: #ffffff;
-$transition-speed: 0.3s;
+$transition-speed: 0.4s;
 
 
 .navbar {
@@ -131,7 +131,7 @@ $transition-speed: 0.3s;
     }
 
     .navItems {
-      display: flex;
+      display: none; // Hide by default
       position: fixed;
       top: 0;
       left: 0;
@@ -142,12 +142,14 @@ $transition-speed: 0.3s;
       justify-content: center;
       align-items: center;
       opacity: 0;
-      transition: opacity $transition-speed ease-in-out;
-      will-change: opacity, display;
+      visibility: hidden;
+      transition: all $transition-speed ease;
+      z-index: 1050;
       
       &.visible {
-        display: flex;
+        display: flex; // Ensure display is set to flex when visible
         opacity: 1;
+        visibility: visible;
       }
     }
 
@@ -155,9 +157,9 @@ $transition-speed: 0.3s;
       font-size: 2rem;
       margin: 15px 0;
       color: $text-color;
+      // opacity: 0;
       transform: translateY(20px);
-      transition: opacity .5s ease-in-out;
-      will-change: opacity;
+      transition: all $transition-speed ease;
 
       &.visible {
         opacity: 1;
@@ -173,52 +175,3 @@ $transition-speed: 0.3s;
   }
 }
 
-#noise-filter {
-  visibility: hidden;
-}
-
-.pageContainer {
-  height: 100svh;
-  background-color: #000;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 0%);
-  width: min-content;
-}
-
-.heading {
-  font-size: 3rem;
-  text-decoration: outline;
-  font-weight: bold;
-  color: white;
-  font-family: Grotesque;
-
-  pointer-events: none;
-  user-select: none;
-}
-
-.svg {
-  height: 7rem;
-  width: 25rem;
-}
-
-.text {
-  font-family: Grotesque;
-  backdrop-filter: blur(5px);
-  filter: url('#noise-filter');
-  fill: rgb(255, 255, 255, 1);
-//   text-shadow: 0 0 2px #000;
-}
-
-#noise-filter {
-  visibility: hidden;
-}

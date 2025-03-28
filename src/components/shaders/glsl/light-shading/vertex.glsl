@@ -11,4 +11,4 @@ void main() {
 
     // Varyings
     vNormal = modelNormal;
-}
+}   

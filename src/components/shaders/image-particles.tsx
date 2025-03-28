@@ -15,8 +15,8 @@ import {
 } from 'three'
 
 import { getControlsFromUniforms } from '../util'
-import fragmentShader from './glsl/particles_image/fragment.glsl'
-import vertexShader from './glsl/particles_image/vertex.glsl'
+import fragmentShader from './glsl/image-particles/fragment.glsl'
+import vertexShader from './glsl/image-particles/vertex.glsl'
 
 export default function ImageParticles() {
   const shader = useRef() as any

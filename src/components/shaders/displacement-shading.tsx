@@ -5,8 +5,8 @@ import { useEffect, useRef } from 'react'
 import { Color, DoubleSide, Vector2 } from 'three'
 
 import { getControlsFromUniforms } from '../util'
-import fragmentShader from './glsl/displacement_shading/fragment.glsl'
-import vertexShader from './glsl/displacement_shading/vertex.glsl'
+import fragmentShader from './glsl/displacement-shading/fragment.glsl'
+import vertexShader from './glsl/displacement-shading/vertex.glsl'
 
 export default function DisplacementShading() {
   const shader = useRef() as any
