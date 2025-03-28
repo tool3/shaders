@@ -94,6 +94,9 @@ const Home: React.FC = () => {
             <text x="12" className={styles.text}>
               SHAD3RS
             </text>
+            <text y="15" x="35" className={styles.textSmall}>
+              webgl and glsl experiments by Tal Hayut
+            </text>
           </svg>
           <svg viewBox="0 0 300 .1">
             <filter id="noise-filter">
