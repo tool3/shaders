@@ -133,10 +133,10 @@ $transition-speed: 0.3s;
     .navItems {
       display: flex;
       position: fixed;
-      top: 0;
+      top: -100%;
       left: 0;
       width: 100%;
-      height: 0vh;
+      height: 100vh;
       background-color: $primary-color;
       flex-direction: column;
       justify-content: center;
@@ -146,8 +146,8 @@ $transition-speed: 0.3s;
       will-change: opacity, height;
       
       &.visible {
+        top: 0;
         opacity: 1;
-        height: 100vh;
       }
     }
 
