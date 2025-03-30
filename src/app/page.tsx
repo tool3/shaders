@@ -50,10 +50,10 @@ export const Navbar: React.FC = () => {
         gsap.to(`.${styles.navItems}`, {
           opacity: 1,
           duration: 0.3,
-          display: 'flex',
+          display: 'flex'
         })
       } else {
-        gsap.to(`.${styles.navItems}`, { opacity: 0, duration: 0.3, })
+        gsap.to(`.${styles.navItems}`, { opacity: 0, duration: 0.3 })
         gsap.to(`.${styles.navItems}`, { display: 'none', delay: 0.3 })
       }
     })
