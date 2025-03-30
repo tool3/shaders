@@ -1,9 +1,11 @@
 'use client'
 
 import clsx from 'clsx'
+import gsap from 'gsap'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
+import SplitType from 'split-type'
 
 import IntroPage from '../components/intro/intro'
 import styles from './page.module.scss'
@@ -41,14 +43,24 @@ export const Navbar: React.FC = () => {
     }
   }, [isMenuOpen])
 
+  useLayoutEffect(() => {
+    const mm = gsap.matchMedia()
+    mm.add('(max-width: 800px)', () => {
+      if (isMenuOpen) {
+        gsap.to(`.${styles.navItems}`, {
+          opacity: 1,
+          duration: 0.3,
+          display: 'flex',
+        })
+      } else {
+        gsap.to(`.${styles.navItems}`, { opacity: 0, duration: 0.3, })
+        gsap.to(`.${styles.navItems}`, { display: 'none', delay: 0.3 })
+      }
+    })
+  }, [isMenuOpen])
+
   return (
-    <nav
-      className={clsx(
-        styles.navbar,
-        scrolled && styles.scrolled,
-        isMenuOpen && styles.menuOpen
-      )}
-    >
+    <nav className={clsx(styles.navbar, scrolled && styles.scrolled)}>
       <div className={styles.navContainer}>
         <div className={styles.logoContainer}>
           <Link href="/" className={styles.logo}>
@@ -65,7 +77,7 @@ export const Navbar: React.FC = () => {
           <span></span>
         </div>
 
-        <div className={clsx(styles.navItems, isMenuOpen && styles.visible)}>
+        <div className={clsx(styles.navItems)}>
           {navItems.map((item) => (
             <Link
               key={item.name}
@@ -85,33 +97,43 @@ export const Navbar: React.FC = () => {
   )
 }
 
+function animate() {
+  const tl = gsap.timeline()
+  const titles = gsap.utils.toArray(`.${styles.paragraph}`) as any[]
+
+  titles.forEach((title) => {
+    const splitted = new SplitType(title, {
+      types: 'chars',
+      wordClass: `.${styles.paragraph}`
+    })
+    tl.from(
+      splitted.chars,
+      { opacity: 0, y: 80, rotateX: -90, stagger: 0.08 },
+      '<0.1'
+    ).to(
+      splitted.chars,
+      { opacity: 0, y: -80, rotateX: 90, stagger: 0.08 },
+      '<1'
+    )
+    tl.repeat(-1)
+  })
+}
+
 const Home: React.FC = () => {
+  useLayoutEffect(() => {
+    animate()
+  }, [])
+
   return (
     <div className={styles.pageContainer}>
       <main className={styles.main}>
         <h1 className={styles.heading}>
-          <svg viewBox="0 0 300 .1" className={styles.svg}>
-            <text x="12" className={styles.text}>
-              SHAD3RS
-            </text>
-            <text y="15" x="35" className={styles.textSmall}>
-              webgl and glsl experiments by Tal Hayut
-            </text>
-          </svg>
-          <svg viewBox="0 0 300 .1">
-            <filter id="noise-filter">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="5.5"
-                numOctaves="3"
-                stitchTiles="stitch"
-                result="noise"
-              />
-              <feComposite operator="out" in="SourceGraphic" />
-            </filter>
-          </svg>
+          <div className={styles.lettersContainer}>
+            <p className={styles.paragraph}>SHAD3RS</p>
+            <p className={styles.paragraph}>THR33JS</p>
+            <p className={styles.paragraph}>GLSL</p>
+          </div>
         </h1>
-        {/* <h6 className={styles.subheading}>by Tal Hayut</h6> */}
       </main>
       <IntroPage />
     </div>

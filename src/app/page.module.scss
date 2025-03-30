@@ -6,17 +6,16 @@ $hover-color: #4a4a4a;
 $text-color: #ffffff;
 $transition-speed: 0.3s;
 
-
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 2;
   background-color: transparent;
   transition: all $transition-speed ease;
   font-family: 'Grotesque', sans-serif;
-  
+
   &.scrolled {
     background-color: rgba($primary-color, 0.95);
     backdrop-filter: blur(15px);
@@ -52,6 +51,7 @@ $transition-speed: 0.3s;
     display: flex;
     align-items: center;
     gap: 40px;
+    opacity: 1;
   }
 
   .navItem {
@@ -59,6 +59,7 @@ $transition-speed: 0.3s;
     text-decoration: none;
     font-weight: 400;
     font-size: 1rem;
+    opacity: 1;
     position: relative;
     transition: all $transition-speed;
     text-transform: uppercase;
@@ -86,7 +87,7 @@ $transition-speed: 0.3s;
 
     &.active {
       color: lighten($text-color, 20%);
-      
+
       &::after {
         width: 100%;
       }
@@ -97,8 +98,8 @@ $transition-speed: 0.3s;
     display: none;
     flex-direction: column;
     cursor: pointer;
-    z-index: 1100;
-    
+    z-index: 1;
+
     span {
       width: 25px;
       height: 2px;
@@ -112,11 +113,11 @@ $transition-speed: 0.3s;
       span:nth-child(1) {
         transform: translateY(10px) rotate(45deg);
       }
-      
+
       span:nth-child(2) {
         opacity: 0;
       }
-      
+
       span:nth-child(3) {
         transform: translateY(-10px) rotate(-45deg);
       }
@@ -127,28 +128,26 @@ $transition-speed: 0.3s;
     .menuToggle {
       display: flex;
       position: relative;
-      z-index: 1100;
+      z-index: 1;
     }
 
     .navItems {
       display: flex;
       position: fixed;
-      top: -100%;
+      top: 0;
       left: 0;
       width: 100%;
       height: 100vh;
+      opacity: 0;
+      z-index: 0;
       background-color: $primary-color;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      opacity: 0;
-      transition: opacity $transition-speed ease-in-out;
-      will-change: opacity, height;
-      
-      &.visible {
-        top: 0;
-        opacity: 1;
-      }
+      transition:
+        opacity $transition-speed ease-in-out,
+        top 0s ease;
+      will-change: opacity;
     }
 
     .navItem {
@@ -156,7 +155,7 @@ $transition-speed: 0.3s;
       margin: 15px 0;
       color: $text-color;
       transform: translateY(20px);
-      transition: opacity .5s ease-in-out;
+      transition: opacity 0.5s ease-in-out;
       will-change: opacity;
 
       &.visible {
@@ -201,9 +200,27 @@ $transition-speed: 0.3s;
   font-weight: bold;
   color: white;
   font-family: Grotesque;
+  overflow: hidden;
 
-  pointer-events: none;
-  user-select: none;
+  .lettersContainer {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-size: 2em;
+    gap: 0;
+
+    .paragraph {
+      display: flex;
+      position: absolute;
+      margin: 0;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    @media screen and (width <= 800px) {
+      font-size: 3rem;
+    }
+  }
 }
 
 .svg {
@@ -216,7 +233,7 @@ $transition-speed: 0.3s;
   backdrop-filter: blur(5px);
   filter: url('#noise-filter');
   fill: rgb(255, 255, 255, 1);
-//   text-shadow: 0 0 2px #000;
+  //   text-shadow: 0 0 2px #000;
 }
 
 .textSmall {
