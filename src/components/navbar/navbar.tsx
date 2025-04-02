@@ -48,12 +48,15 @@ export const Navbar: React.FC = () => {
       if (isMenuOpen) {
         gsap.to(`.${styles.navItems}`, {
           opacity: 1,
-          duration: 0.3,
-          display: 'flex'
+          duration: 0.2,
+          pointerEvents: 'all'
         })
       } else {
-        gsap.to(`.${styles.navItems}`, { opacity: 0, duration: 0.3 })
-        gsap.to(`.${styles.navItems}`, { display: 'none', delay: 0.3 })
+        gsap.to(`.${styles.navItems}`, {
+          opacity: 0,
+          duration: 0.2,
+          pointerEvents: 'none'
+        })
       }
     })
   }, [isMenuOpen])
