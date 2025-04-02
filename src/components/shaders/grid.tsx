@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unknown-property */
 import { useFrame } from '@react-three/fiber'
+import { useControls } from 'leva'
 import { Suspense, useRef } from 'react'
 import { Color, DoubleSide, Vector2 } from 'three'
 
+import { getControlsFromUniforms } from '../util'
 import fragmentShader from './glsl/grid/fragment.glsl'
 import vertexShader from './glsl/grid/vertex.glsl'
-import { getControlsFromUniforms } from '../util'
-import { useControls } from 'leva'
 
 export default function Grid() {
   const shader = useRef() as any

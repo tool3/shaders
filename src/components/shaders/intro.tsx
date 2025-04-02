@@ -21,7 +21,6 @@ export default function Intro() {
 
   const palettes = {
     default: ['#b6ceb2', '#f1c88b', '#000000'],
-    blue: ['#a8dadc', '#457b9d', '#8ba3a3'],
     blueish: ['#b19cd9', '#87ceeb', '#000000'],
     green: ['#556b2f', '#8cbe29', '#000000'],
     lavender: ['#483d8b', '#8d72c4', '#d8bfd8'],
@@ -40,6 +39,24 @@ export default function Intro() {
     sizes.height * sizes.pixelRatio
   )
 
+  useControls('Intro', {
+    palette: {
+      value: 'lavender',
+      options: {
+        default: 'default',
+        blueish: 'blueish',
+        green: 'green',
+        lavender: 'lavender',
+        pastel: 'pastel'
+      },
+      onChange: (val) => {
+        shader.current.uniforms.uColorA.value = new Color(palettes[val][0])
+        shader.current.uniforms.uColorB.value = new Color(palettes[val][1])
+        shader.current.uniforms.uAccent.value = new Color(palettes[val][2])
+      }
+    }
+  })
+
   const uniforms = {
     uTime: { value: 0 },
     uResolution: {
@@ -49,15 +66,13 @@ export default function Intro() {
     uMouse: {
       value: new Vector2(0.0, 0.0)
     },
-    uColorA: { value: new Color('#b6ceb2') },
-    uColorB: { value: new Color('#f1c88b') },
-    uAccent: { value: new Color(0, 0, 0) }
+    uColorA: { value: new Color(palettes.blueish[0]) },
+    uColorB: { value: new Color(palettes.blueish[1]) },
+    uAccent: { value: new Color(palettes.blueish[2]) }
   }
 
   const controls = getControlsFromUniforms(uniforms, shader)
   useControls('Intro', controls)
-
-  // cursor && useMouse(shader, true)
 
   return (
     <Suspense fallback={null}>
