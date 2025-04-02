@@ -3,10 +3,10 @@ import '~/css/global.scss'
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 
+import { Navbar } from '~/components/navbar/navbar'
 import { siteURL } from '~/lib/constants'
 
 import { AppHooks } from './app-hooks'
-import { Navbar } from './page'
 import { Providers } from './providers'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' })

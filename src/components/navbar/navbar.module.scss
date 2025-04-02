@@ -34,12 +34,14 @@ $transition-speed: 0.3s;
 
   .logoContainer {
     .logo {
-      font-size: 1.8rem;
+      font-size: 1rem;
       font-weight: 700;
       color: $text-color;
       text-decoration: none;
       letter-spacing: 3px;
       transition: color $transition-speed;
+      display: flex;
+      flex-direction: column;
 
       &:hover {
         color: lighten($text-color, 20%);
@@ -53,6 +55,16 @@ $transition-speed: 0.3s;
     gap: 40px;
     opacity: 1;
     will-change: opacity;
+  }
+
+  .home {
+    display: block;
+  }
+  .glsl {
+    display: block;
+  }
+  .threejs {
+    display: block;
   }
 
   .navItem {
@@ -247,4 +259,22 @@ $transition-speed: 0.3s;
 
 #noise-filter {
   visibility: hidden;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.wordOut {
+  display: block;
+}
+
+.word {
+  display: block;
+}
+
+.wordIn {
+  display: block;
+  opacity: 0;
+  will-change: opacity;
 }
