@@ -127,8 +127,8 @@ export const Navbar: React.FC = () => {
       <div className={styles.navContainer}>
         <div
           className={styles.logoContainer}
-          onMouseEnter={() => onEnter(`.${styles.word}`)}
-          onMouseLeave={() => onLeave(`.${styles.word}`)}
+          onMouseEnter={() => onEnter(`.${styles.word}`, 0.2)}
+          onMouseLeave={() => onLeave(`.${styles.word}`, 0.2)}
         >
           <Link href="/" className={styles.logo}>
             <p className={styles.word}>SHAD3RS</p>
