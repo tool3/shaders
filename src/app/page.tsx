@@ -19,14 +19,14 @@ function animate() {
 
     tl.from(
       splitted.chars,
-      { opacity: 0, y: 80, rotateX: -90, stagger: 0.08 },
+      { opacity: 0, y: 80, rotateX: -90, stagger: 0.08, color: '#87ceeb' },
       '<'
     )
 
     if (index < titles.length - 1) {
       tl.to(
         splitted.chars,
-        { opacity: 0, y: -80, rotateX: 90, stagger: 0.08, color: 'black' },
+        { opacity: 0, y: -80, rotateX: 90, stagger: 0.08, color: '#b19cd9' },
         '<1'
       )
     }

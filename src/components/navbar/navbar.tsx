@@ -17,7 +17,7 @@ export const Navbar: React.FC = () => {
   const navItems = [
     { name: 'home', path: '/' },
     { name: 'threejs', path: '/shaders' },
-    { name: 'glsl', path: '/glsl' }
+    { name: 'opengl', path: '/glsl' }
   ]
 
   const toggleMenu = () => {
@@ -77,7 +77,7 @@ export const Navbar: React.FC = () => {
         rotateX: 90,
         duration,
         stagger: 0.03,
-        color: 'black'
+        color: '#87ceeb'
       }).from(splitted.chars, {
         opacity: 1,
         y: 10,
@@ -106,7 +106,7 @@ export const Navbar: React.FC = () => {
         rotateX: -90,
         duration,
         stagger: 0.05,
-        color: 'black'
+        color: '#b19cd9'
       })
       tl.from(
         splitted.chars,
@@ -116,7 +116,7 @@ export const Navbar: React.FC = () => {
           rotateX: 90,
           duration,
           stagger: 0.05,
-          color: 'black'
+          color: '#b19cd9'
         },
         '-=0.2'
       )

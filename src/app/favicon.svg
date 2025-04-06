@@ -7,8 +7,29 @@
    version="1.1"
    viewBox="0 0 95.699994 95.699997"
    id="svg8"
+   sodipodi:docname="favicon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="95.699997"
+       height="95.699997"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
   <defs
      id="defs8" />
   <circle
@@ -17,7 +38,7 @@
      fill="#ddfc23"
      id="circle1"
      r="40.89838"
-     style="stroke-width:1" />
+     style="fill:#57a1d2;fill-opacity:1;stroke-width:1" />
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
      d="M 16.59175,47.941513 79.108246,47.758484 Z"

@@ -49,7 +49,7 @@
     ubuntu, cantarell, fira sans, droid sans, helvetica neue, sans-serif;
 
   // Colors
-  --theme-color: #ff9c6e;
+  --theme-color: #57a1d2ff;
   --theme-color-on: #ff5f15;
   --theme-color-off: #51210c;
   --inspect-color: #f00;
@@ -58,7 +58,6 @@
   --color-white: #fff;
   --color-gray: #0f0f0f;
   --color-gray-lighter: #262626;
-  --color-shout-yellow: #ddfc23;
 
   /* Duration */
   --duration-slow: #{$duration * 1.5}s;
@@ -88,7 +87,7 @@ html {
   // background-color: var(--color-black);
 
   ::selection {
-    background: var(--color-shout-yellow);
+    background: var(--theme-color);
     color: black;
   }
 }
