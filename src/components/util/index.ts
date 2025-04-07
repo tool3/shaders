@@ -134,6 +134,7 @@ export function getControlsFromUniforms(uniforms, ref) {
         value: isColor ? `#${uniform.value.getHexString()}` : uniform.value,
         min: uniform.min || 0,
         max: uniform.max || 10,
+        step: uniform.step || 0.1,
         onChange: (val: any) => {
           if (isColor) {
             ref.current.uniforms[key].value.set(val)

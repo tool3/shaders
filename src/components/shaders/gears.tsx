@@ -67,7 +67,7 @@ export default function Gears() {
       })
     }
     if (axle.current) {
-      axle.current.rotation.z = elapsedTime / 2;
+      axle.current.rotation.z = elapsedTime / 2
     }
   })
 

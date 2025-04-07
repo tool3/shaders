@@ -41,7 +41,7 @@ export default function Intro() {
 
   useControls('Intro', {
     palette: {
-      value: 'lavender',
+      value: 'blueish',
       options: {
         default: 'default',
         blueish: 'blueish',

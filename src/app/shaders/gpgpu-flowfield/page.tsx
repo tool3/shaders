@@ -7,7 +7,12 @@ import s from './page.module.scss'
 
 export default function Page() {
   return (
-    <CanvasWithModel panel initZoom={80} className={s.page}>
+    <CanvasWithModel
+      panel
+      initZoom={3}
+      useCameraProps={false}
+      className={s.page}
+    >
       <GPGPUFlowField />
     </CanvasWithModel>
   )
