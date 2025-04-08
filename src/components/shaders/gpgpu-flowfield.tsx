@@ -4,7 +4,7 @@ import { useGLTF } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useControls } from 'leva'
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
-import { AdditiveBlending, Vector2 } from 'three'
+import { Vector2 } from 'three'
 import { GPUComputationRenderer } from 'three-stdlib'
 
 import { getControlsFromUniforms } from '../util'
@@ -28,7 +28,7 @@ export default function GPGPUFlowField() {
 
   const uniforms = {
     uTime: { value: 0 },
-    uSize: { value: 0.07, step: 0.0001, max: 1.0 },
+    uSize: { value: 0.03, step: 0.0001, max: 1.0 },
     uResolution: {
       max: sizes.width * sizes.pixelRatio,
       value: new Vector2(
@@ -93,9 +93,54 @@ export default function GPGPUFlowField() {
     gpgpu.particlesVariable
   ])
 
+  const controls = gpgpuReady ? getControlsFromUniforms(uniforms, shader) : []
+  useControls('GPGPUFlowfield', controls, [gpgpuReady])
+  const { uFlowFieldInfluence, uFlowFieldStrength, uFlowFieldFrequency } =
+    useControls('GPGPUFlowfield', {
+      uFlowFieldInfluence: {
+        value: 0.5,
+        min: 0,
+        max: 1,
+        step: 0.01,
+        onChange: (val) => {
+          gpgpu.particlesVariable.material.uniforms.uFlowFieldInfluence.value =
+            val
+        }
+      },
+      uFlowFieldStrength: {
+        value: 2.0,
+        min: 0,
+        max: 1,
+        step: 0.01,
+        onChange: (val) => {
+          gpgpu.particlesVariable.material.uniforms.uFlowFieldStrength.value =
+            val
+        }
+      },
+      uFlowFieldFrequency: {
+        value: 0.5,
+        min: 0,
+        max: 1,
+        step: 0.01,
+        onChange: (val) => {
+          gpgpu.particlesVariable.material.uniforms.uFlowFieldFrequency.value =
+            val
+        }
+      }
+    }) as any
+
   gpgpu.particlesVariable.material.uniforms.uTime = { value: 0.0 }
   gpgpu.particlesVariable.material.uniforms.uDeltaTime = { value: 0.0 }
   gpgpu.particlesVariable.material.uniforms.uBase = { value: baseParticles }
+  gpgpu.particlesVariable.material.uniforms.uFlowFieldInfluence = {
+    value: uFlowFieldInfluence || 0.5
+  }
+  gpgpu.particlesVariable.material.uniforms.uFlowFieldStrength = {
+    value: uFlowFieldStrength || 2.0
+  }
+  gpgpu.particlesVariable.material.uniforms.uFlowFieldFrequency = {
+    value: uFlowFieldFrequency || 0.5
+  }
 
   const error = gpgpu.computation.init()
   useEffect(() => {
@@ -131,15 +176,12 @@ export default function GPGPUFlowField() {
     gpgpu.particlesVariable
   ).texture
 
-  const controls = gpgpuReady ? getControlsFromUniforms(uniforms, shader) : []
-  useControls('GPGPUFlowfield', controls, [gpgpuReady])
-
   return (
     <Suspense fallback={null}>
-      {/* <mesh position={[3, 0, 0]}>
+      <mesh position={[3, 0, 0]}>
         <planeGeometry args={[3, 3]} />
         <meshBasicMaterial map={texture} />
-      </mesh> */}
+      </mesh>
       {gpgpuReady && (
         <points>
           <bufferGeometry drawRange={{ start: 0, count: baseGeometry.count }}>
@@ -166,7 +208,6 @@ export default function GPGPUFlowField() {
             vertexShader={vertexShader}
             fragmentShader={fragmentShader}
             depthWrite={false}
-            blending={AdditiveBlending}
           />
         </points>
       )}
