@@ -14,6 +14,7 @@ const shaders = [
   'tet',
   'grid',
   'gears',
+  'gpgpu-flowfield',
   'procedural-terrain',
   'intro',
   'displacement',

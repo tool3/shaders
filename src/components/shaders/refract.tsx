@@ -34,7 +34,7 @@ export default function Refract() {
     uColorA: { value: new Color('#ff00ff') },
     uColorB: { value: new Color('#a6ffff') },
     uAccent: { value: new Color('#000000') },
-    uZoom: { value: 0.1, min: 0.01, max: 1.0 },
+    uZoom: { value: 0.05, min: 0.01, max: 2.0, step: 0.001 },
     uResolution: {
       max: resolution,
       value: resolution

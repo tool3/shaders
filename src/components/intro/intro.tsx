@@ -10,7 +10,7 @@ export default function IntroPage() {
     <CanvasWithModel
       className={s.canvas}
       orbitEnabled={false}
-      initZoom={5}
+      initZoom={200}
       useCameraProps={false}
     >
       <Intro />

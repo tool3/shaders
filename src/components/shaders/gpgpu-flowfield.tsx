@@ -28,7 +28,7 @@ export default function GPGPUFlowField() {
 
   const uniforms = {
     uTime: { value: 0 },
-    uSize: { value: 0.03, step: 0.0001, max: 1.0 },
+    uSize: { value: 0.07, step: 0.0001, max: 1.0 },
     uResolution: {
       max: sizes.width * sizes.pixelRatio,
       value: new Vector2(
@@ -172,16 +172,8 @@ export default function GPGPUFlowField() {
     }
   })
 
-  const texture = gpgpu.computation.getCurrentRenderTarget(
-    gpgpu.particlesVariable
-  ).texture
-
   return (
     <Suspense fallback={null}>
-      <mesh position={[3, 0, 0]}>
-        <planeGeometry args={[3, 3]} />
-        <meshBasicMaterial map={texture} />
-      </mesh>
       {gpgpuReady && (
         <points>
           <bufferGeometry drawRange={{ start: 0, count: baseGeometry.count }}>
