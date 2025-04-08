@@ -11,10 +11,11 @@ import s from './page.module.scss'
 export default function Page() {
   return (
     <CanvasWithModel
-      initZoom={0.5}
+      initZoom={3}
       panel
       className={s.page}
       minDistance={3}
+      cameraPosition={[10, 10, -3]}
       useCameraProps={false}
     >
       <Gears />

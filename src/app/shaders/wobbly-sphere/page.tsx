@@ -11,7 +11,7 @@ import s from './page.module.scss'
 export default function Page() {
   return (
     <CanvasWithModel
-      initZoom={0.5}
+      initZoom={10}
       panel
       className={s.page}
       minDistance={3}
