@@ -1,4 +1,5 @@
 uniform vec2 uResolution;
+uniform int uRepititions;
 uniform vec3 uColor;
 uniform float uTime;
 
@@ -68,7 +69,7 @@ vec3 drops(vec2 uv) {
     // UNIT CIRCLE
     float circle = smoothstep(0.01, 0.005, abs(length(uv) - 1.));
 
-    for(int i = 0; i < 10; i++) {
+    for(int i = 0; i < uRepititions; i++) {
         int anim_instance = i;
         // ANIMATION
         float time_offset = hash(vec3(anim_instance, 1., hash_cnt++));

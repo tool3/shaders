@@ -32,6 +32,7 @@ export default function Grid() {
   const uniforms = {
     uTime: { value: 0 },
     uColor: { value: new Color('#00ff23') },
+    uRepititions: { value: 1, min: 1, max: 10, step: 1 },
     uResolution: {
       max: resolution,
       value: resolution
