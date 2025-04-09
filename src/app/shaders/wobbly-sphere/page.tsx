@@ -10,13 +10,7 @@ import s from './page.module.scss'
 
 export default function Page() {
   return (
-    <CanvasWithModel
-      initZoom={10}
-      panel
-      className={s.page}
-      minDistance={3}
-      useCameraProps={false}
-    >
+    <CanvasWithModel initZoom={50} panel className={s.page} minDistance={3}>
       <WobblySphere />
       <Environment files="/textures/environments/autumn_field_1k.hdr" />
       <directionalLight
