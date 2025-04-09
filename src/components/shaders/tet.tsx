@@ -21,13 +21,9 @@ export default function Tet() {
   }
 
   const materialProps = useControls({
-    metalness: { value: 0, min: 0, max: 1 },
-    roughness: { value: 0.5, min: 0, max: 1 },
-    transmission: { value: 0, min: 0, max: 1 },
-    thickness: { value: 1.5, min: 0, max: 2 },
-    ior: { value: 1.5, min: 0, max: 2 },
-    wireframe: false,
-    transparent: true
+    metalness: { value: 0.5, min: 0, max: 1 },
+    roughness: { value: 0.7, min: 0, max: 1 },
+    wireframe: false
   })
 
   const resolution = new Vector2(
