@@ -7,6 +7,7 @@ import Link from 'next/link'
 import s from './page.module.scss'
 
 const shaders = [
+  'intro',
   'refract',
   'trippy',
   'raymarching',

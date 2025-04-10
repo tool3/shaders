@@ -16,7 +16,7 @@ const shaders = [
   'gears',
   'gpgpu-flowfield',
   'procedural-terrain',
-  'intro',
+  'earth',
   'displacement',
   'displacement-shading'
 ]
