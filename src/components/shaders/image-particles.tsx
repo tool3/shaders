@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unknown-property */
-import { useFrame, useLoader } from '@react-three/fiber'
+import { useFrame, useLoader, useThree } from '@react-three/fiber'
 import { useControls } from 'leva'
 import { createRef, Suspense, useEffect, useRef } from 'react'
 import {
@@ -21,7 +21,7 @@ import vertexShader from './glsl/image-particles/vertex.glsl'
 export default function ImageParticles() {
   const shader = useRef() as any
   const planeRef = useRef() as any
-
+  const { camera } = useThree()
   const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -151,6 +151,7 @@ export default function ImageParticles() {
       value: useLoader(TextureLoader, '/images/image-particles/e.JPG')
     },
     uDisplacementTexture: { value: displacement.texture },
+    uSize: { value: 0.8 },
     uResolution: {
       max: sizes.width * sizes.pixelRatio,
       value: new Vector2(
@@ -162,7 +163,7 @@ export default function ImageParticles() {
 
   const controls = getControlsFromUniforms(uniforms, shader)
   useControls('ParticleImage', controls)
-  useControls({
+  useControls('ParticleImage', {
     image: {
       value: '/images/image-particles/h.JPG',
       options: {
@@ -187,6 +188,18 @@ export default function ImageParticles() {
         if (canvasRef.current) {
           canvasRef.current.style.display = val ? 'block' : 'none'
         }
+      }
+    }
+  })
+  useControls('ParticleImage', {
+    zoom: {
+      value: 80,
+      min: 10,
+      max: 100,
+      step: 0.01,
+      onChange: (val) => {
+        camera.zoom = val
+        camera.updateProjectionMatrix()
       }
     }
   })

@@ -2,6 +2,7 @@ uniform vec2 uResolution;
 uniform vec3 uColor;
 uniform sampler2D uPictureTexture;
 uniform sampler2D uDisplacementTexture;
+uniform float uSize;
 
 attribute float aIntensity;
 attribute float aAngle;
@@ -31,7 +32,7 @@ void main() {
     float pictureIntensity = texture(uPictureTexture, uv).r;
 
     // Point size
-    gl_PointSize = 0.5 * pictureIntensity * uResolution.y;
+    gl_PointSize = 0.5 * uSize * pictureIntensity * uResolution.y;
     gl_PointSize *= (1.0 / -viewPosition.z);
 
     vColor = vec3(uColor * pow(pictureIntensity, 2.0));
