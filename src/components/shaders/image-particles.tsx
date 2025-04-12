@@ -146,23 +146,35 @@ export default function ImageParticles() {
 
   const uniforms = {
     uTime: { value: 0 },
-    uColor: { value: new Color('#ffffff') },
+    uColor: { value: new Color('#57a1d2') },
     uPictureTexture: {
       value: useLoader(TextureLoader, '/images/image-particles/e.JPG')
     },
     uDisplacementTexture: { value: displacement.texture },
-    uSize: { value: 0.8 },
     uResolution: {
       max: sizes.width * sizes.pixelRatio,
       value: new Vector2(
         sizes.width * sizes.pixelRatio,
         sizes.height * sizes.pixelRatio
       )
-    }
+    },
+    uSize: { value: 0.8 }
   }
 
   const controls = getControlsFromUniforms(uniforms, shader)
   useControls('ParticleImage', controls)
+  useControls('ParticleImage', {
+    zoom: {
+      value: 80,
+      min: 10,
+      max: 100,
+      step: 0.01,
+      onChange: (val) => {
+        camera.zoom = val
+        camera.updateProjectionMatrix()
+      }
+    }
+  })
   useControls('ParticleImage', {
     image: {
       value: '/images/image-particles/h.JPG',
@@ -188,18 +200,6 @@ export default function ImageParticles() {
         if (canvasRef.current) {
           canvasRef.current.style.display = val ? 'block' : 'none'
         }
-      }
-    }
-  })
-  useControls('ParticleImage', {
-    zoom: {
-      value: 80,
-      min: 10,
-      max: 100,
-      step: 0.01,
-      onChange: (val) => {
-        camera.zoom = val
-        camera.updateProjectionMatrix()
       }
     }
   })
