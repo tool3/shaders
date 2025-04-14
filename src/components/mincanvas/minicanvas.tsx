@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import { OrbitControls, Stats } from '@react-three/drei'
+import { Html, OrbitControls, Stats } from '@react-three/drei'
 import { Canvas, Vector3 } from '@react-three/fiber'
 import { Leva, useControls } from 'leva'
 import { Perf } from 'r3f-perf'
@@ -8,6 +8,7 @@ import { ReactNode, Suspense, useRef, useState } from 'react'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 
 import Debug from '../debug/debug'
+import styles from './minicanvas.module.scss'
 
 export default function CanvasWithModel({
   className,
@@ -58,6 +59,12 @@ export default function CanvasWithModel({
       }
     : { camera: { zoom, position: cameraPosition } }
 
+  const fallback = (
+    <Html zIndexRange={[0, 0]} className={styles.fallback}>
+      loading model...
+    </Html>
+  )
+
   return (
     <>
       <Leva collapsed hidden={!active} />
@@ -76,7 +83,7 @@ export default function CanvasWithModel({
       >
         <color attach="background" args={[background]} />
         {perf ? <Perf position="bottom-left" logsPerSecond={1} /> : null}
-        <Suspense fallback={null}>{children}</Suspense>
+        <Suspense fallback={fallback}>{children}</Suspense>
 
         <OrbitControls
           ref={target}
