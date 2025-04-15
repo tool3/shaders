@@ -85,10 +85,10 @@ export default function Earth() {
 
   return (
     <>
-      <mesh ref={icohedron} castShadow receiveShadow>
+      {/* <mesh ref={icohedron} castShadow receiveShadow>
         <icosahedronGeometry args={[0.1, 10]} />
         <meshBasicMaterial />
-      </mesh>
+      </mesh> */}
       <mesh>
         <sphereGeometry args={[2.05, 64, 64]} />
         <shaderMaterial
