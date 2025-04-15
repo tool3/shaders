@@ -29,7 +29,7 @@ export default function ProceduralTerrain() {
 
   const uniforms = {
     uTime: { value: 0 },
-    uPositionFrequency: { value: 0.2, min: 0.0, max: 1.0, step: 0.001 },
+    uPositionFrequency: { value: 0.2, min: 0.0, max: 1.0, step: 0.00001 },
     uStrength: { value: 2.0, min: 0.0, max: 5.0, step: 0.001 },
     uWarpFrequency: { value: 5.0, min: 0.0, max: 10.0, step: 0.001 },
     uWarpStrength: { value: 0.5, min: 0.0, max: 1.0, step: 0.001 },
