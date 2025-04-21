@@ -1,6 +1,6 @@
 # SHAD3RS
 
-OpenGL shaders and threejs experiments.
+A playground of WebGL experiments and shader explorations, built with **Next.js** and **React Three Fiber**.
 
 https://github.com/user-attachments/assets/c1d5326a-4cd1-47bc-b1e6-27e869809532
 
