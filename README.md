@@ -2,7 +2,7 @@
 
 OpenGL shaders and threejs experiments.
 
-![](./public/branding/shad3rs-final.mp4)
+https://github.com/user-attachments/assets/c1caaf2a-02b5-4f00-b9b2-ba362856bffc
 
 Some of these experiments are straight from threejs-journey by the great Bruno Simon.  
 Other shaders are created by yours truly or collected from tutorials and internet browsing.
