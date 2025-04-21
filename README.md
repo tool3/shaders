@@ -2,7 +2,7 @@
 
 OpenGL shaders and threejs experiments.
 
-https://github.com/user-attachments/assets/c1caaf2a-02b5-4f00-b9b2-ba362856bffc
+https://github.com/user-attachments/assets/c1d5326a-4cd1-47bc-b1e6-27e869809532
 
 - Scenes and effects from the [Three.js Journey](https://threejs-journey.com/) course by the great [Bruno Simon](https://twitter.com/bruno_simon)
 - Custom GLSL shaders I wrote or adapted
