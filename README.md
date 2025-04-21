@@ -11,7 +11,7 @@ Other shaders are created by yours truly or collected from tutorials and interne
 
 Threejs-journey is a beautiful comprehensive threejs course that takes you through the ropes and teaches you how to create performant, JS native apps with threejs.
 
-I wanted to create a project that showcased all of these shaders/experiments in a react-three/fiber app so that other could use it or build upon it.
+I wanted to create a project that showcased all of these shaders/experiments in a `react-three/fiber` app with nextjs so that I can share the knowledge and little quirks to make it work and allow others to build upon it.   
 
 # Want more ?
 
