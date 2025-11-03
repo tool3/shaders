@@ -4,27 +4,36 @@ import { useControls } from 'leva'
 import { useRef } from 'react'
 import { DoubleSide, Vector3 } from 'three'
 
-import useMouse from '~/hooks/use-mouse'
-
 import { getControlsFromUniforms } from '../util'
-import fragmentShader from './glsl/dotted-shift/fragment.glsl'
-import vertexShader from './glsl/dotted-shift/vertex.glsl'
+import fragmentShader from './glsl/matrix/fragment.glsl'
+import vertexShader from './glsl/matrix/vertex.glsl'
 
-export default function DottedShift() {
+export default function Matrix() {
   const shader = useRef() as any
+
+  const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight,
+    pixelRatio: Math.min(window.devicePixelRatio, 2)
+  }
+
+  const resolution = new Vector3(
+    sizes.width * sizes.pixelRatio,
+    sizes.height * sizes.pixelRatio,
+    1.0
+  )
+
   const uniforms = {
     uTime: { value: 0 },
     uAbberation: { value: 0.03, min: 0.0, max: 0.08, step: 0.0001 },
     uGridSize: { value: 180.0, max: 500.0, min: 50.0 },
     uNoiseMultiplier: { value: 1.0, max: 10.0, min: 0.1 },
-    uPushStrength: { value: 0.1, min: 0.0, max: 0.3, step: 0.001 },
-    uPushRadius: { value: 0.35, min: 0.05, max: 0.8, step: 0.01 },
-    uMouse: { value: new Vector3(0.0, 0.0, 1.0) }
+    uResolution: { value: resolution }
   }
 
   const controls = getControlsFromUniforms(uniforms, shader)
-  useControls('DottedShift', controls)
-  useMouse(shader)
+  useControls('Matrix', controls)
+
   useFrame(({ clock }) => {
     const elapsedTime = clock.getElapsedTime()
     if (shader.current) shader.current.uniforms.uTime.value = elapsedTime
