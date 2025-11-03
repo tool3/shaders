@@ -12,7 +12,8 @@ const shaders = [
   'trippy',
   'raymarching',
   'raymarching-orbit',
-  'raymarching-scene'
+  'raymarching-scene',
+  'dotted-shift'
 ]
 
 export default function Page() {

@@ -1,0 +1,51 @@
+.navItem {
+  text-transform: uppercase;
+  position: relative;
+
+  &:hover {
+    &:after {
+      width: 100%;
+      left: 0;
+      right: auto;
+      transition: 1s cubic-bezier(0.87, 0, 0.13, 1);
+    }
+  }
+
+  &:after {
+    display: block;
+    position: absolute;
+    content: '';
+    height: 2px;
+    width: 0;
+    right: 0;
+    background: white;
+    transition: 0.5s cubic-bezier(0.87, 0, 0.13, 1);
+  }
+}
+
+.home {
+  display: block;
+  position: absolute;
+}
+
+.home2 {
+  display: block;
+}
+
+.work {
+  display: block;
+  position: absolute;
+}
+
+.work2 {
+  display: block;
+}
+
+.about {
+  display: block;
+  position: absolute;
+}
+
+.about2 {
+  display: block;
+}
