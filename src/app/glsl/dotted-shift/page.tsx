@@ -9,13 +9,13 @@ import s from './page.module.scss'
 export default function Page() {
   return (
     <CanvasWithModel
-      initZoom={280}
+      initZoom={250}
       panel
       className={s.page}
       orbitEnabled={false}
     >
       <mesh>
-        <planeGeometry args={[5, 5, 32, 32]} />
+        <planeGeometry args={[7, 7, 32, 32]} />
         <DottedShift />
       </mesh>
     </CanvasWithModel>

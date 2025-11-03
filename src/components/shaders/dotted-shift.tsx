@@ -12,8 +12,9 @@ export default function DottedShift() {
   const shader = useRef() as any
   const uniforms = {
     uTime: { value: 0 },
-    uAbberation: { value: 0.03, min: 0.0, max: 0.05, step: 0.001 },
-    uGridSize: { value: 150.0, max: 200.0, min: 50.0 }
+    uAbberation: { value: 0.03, min: 0.0, max: 0.08, step: 0.0001 },
+    uGridSize: { value: 180.0, max: 500.0, min: 50.0 },
+    uNoiseMultiplier: { value: 1.0, max: 10.0, min: 0.1 }
   }
 
   const controls = getControlsFromUniforms(uniforms, shader)

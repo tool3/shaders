@@ -3,6 +3,7 @@ uniform float uTime;
 uniform vec2 uMouse;
 uniform float uAbberation;
 uniform float uGridSize;
+uniform float uNoiseMultiplier;
 
 #pragma glslify: cnoise = require(../noise/perlin3D.glsl);
 
@@ -15,14 +16,14 @@ float circleAt(vec2 uv) {
 
     // vec2 center = vec2(0.5, 0.5);
     // float dast = -distance(uv, center);
-    float uvMultiplier = 6.5;
+    float uvMultiplier = 6.5 * uNoiseMultiplier;
 
     float n1 = cnoise(vec3(uv * uvMultiplier, 1.0) + uTime * speed);
     float n2 = cnoise(vec3(uv * uvMultiplier, 1.0) + uTime * speed);
     float n3 = cnoise(vec3(uv * uvMultiplier, 1.0) + uTime * speed);
 
     float dist = length(centerOffset);
-    return step(dist, radius + (n1 * n2 + (n3 * uv.y))) * 5.0;
+    return step(dist, radius + (n1 * n2 + (n3 * uv.y))) * 2.0;
 }
 
 void main() {
