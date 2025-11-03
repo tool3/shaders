@@ -9,7 +9,7 @@ import s from './page.module.scss'
 export default function Page() {
   return (
     <CanvasWithModel
-      initZoom={200}
+      initZoom={280}
       panel
       className={s.page}
       orbitEnabled={false}

@@ -22,9 +22,7 @@ float circleAt(vec2 uv) {
     float n3 = cnoise(vec3(uv * uvMultiplier, 1.0) + uTime * speed);
 
     float dist = length(centerOffset);
-    return step(dist, radius + (n1 * n2 + (n3 * uv.y)));
-    // return step(dist, mod(radius, (n1 * n2 + (n3 * uv.y))));
-    // return dist + radius + (n1 * n2 + (n3 * uv.y))
+    return step(dist, radius + (n1 * n2 + (n3 * uv.y))) * 5.0;
 }
 
 void main() {
