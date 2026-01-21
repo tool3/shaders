@@ -15,7 +15,7 @@ export default function Page() {
       orbitEnabled={false}
     >
       <mesh>
-        <planeGeometry args={[10, 10, 32, 32]} />
+        <planeGeometry args={[50, 50, 32, 32]} />
         <Matrix />
       </mesh>
     </CanvasWithModel>

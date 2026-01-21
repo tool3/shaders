@@ -12,7 +12,6 @@ const shaders = [
   'image-particles',
   'halftone',
   'tet',
-  'grid',
   'gears',
   'gpgpu-flowfield',
   'procedural-terrain',

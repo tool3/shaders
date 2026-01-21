@@ -1,25 +1,61 @@
 varying vec2 vUv;
+uniform vec2 uResolution;
 uniform float uTime;
-uniform vec3 uResolution;
-uniform sampler2D uChannel;
 
-void main() {
-    vec4 I = vec4(0.0);
-    vec2 u = (gl_FragCoord.xy * 2.0 - uResolution.xy) / uResolution.y;
-    vec4 res = vec4(u, 1.0, 1.0);
-    float M, A, T = uTime, R;
-    for(I *= R; R++ < 66.;) {
-        vec4 X = res.xyzx, p = A * normalize(vec4((u + u - X.xy) *
-            mat2(cos(A * sin(T * .1) * .3 + vec4(0, 33, 11, 0))), X.y, 0));
-        p.z += T;
-        p.y = abs(abs(p.y) - 1.);
+vec3 palette(float d) {
+    return mix(vec3(0.2, 0.7, 0.9), vec3(1., 0., 1.), d);
+}
 
-        X = fract(dot(X = ceil(p * 4.), sin(X)) + X);
-        X.g += 4.;
-        M = 4. * pow(smoothstep(1., .5, texture(uChannel, (p.xz + ceil(T + X.x)) / 4.).a), 8.) - 5.;
+vec2 rotate(vec2 p, float a) {
+    float c = cos(a);
+    float s = sin(a);
+    return p * mat2(c, s, -s, c);
+}
 
-        A += p.y * .6 - (M + A + A + 3.) / 67.;
-
-        gl_FragColor += (X.a + .5) * (X + A) * (1.4 - p.y) / 2e2 / M / M / exp(A * .1);
+float map(vec3 p) {
+    for(int i = 0; i < 8; ++i) {
+        float t = uTime * 0.2;
+        p.xz = rotate(p.xz, t);
+        p.xy = rotate(p.xy, t * 1.89);
+        p.xz = abs(p.xz);
+        p.xz -= .5;
     }
+    return dot(sign(p), p) / 5.;
+}
+
+vec4 rm(vec3 ro, vec3 rd) {
+    float t = 0.;
+    vec3 col = vec3(0.);
+    float d;
+    for(float i = 0.; i < 64.; i++) {
+        vec3 p = ro + rd * t;
+        d = map(p) * .5;
+        if(d < 0.02) {
+            break;
+        }
+        if(d > 100.) {
+            break;
+        }
+        //col+=vec3(0.6,0.8,0.8)/(400.*(d));
+        col += palette(length(p) * .1) / (400. * (d));
+        t += d;
+    }
+    return vec4(col, 1. / (d * 100.));
+}
+void main() {
+    vec2 uv = (gl_FragCoord.xy - (uResolution.xy / 2.0)) / uResolution.x;
+    // vec2 uv = vUv;
+    vec3 ro = vec3(0., 0., -50.);
+    ro.xz = rotate(ro.xz, uTime);
+    vec3 cf = normalize(-ro);
+    vec3 cs = normalize(cross(cf, vec3(0., 1., 0.)));
+    vec3 cu = normalize(cross(cf, cs));
+
+    vec3 uuv = ro + cf * 3. + uv.x * cs + uv.y * cu;
+
+    vec3 rd = normalize(uuv - ro);
+
+    vec4 col = rm(ro, rd);
+
+    gl_FragColor = col;
 }

@@ -10,10 +10,12 @@ const shaders = [
   'intro',
   'refract',
   'trippy',
+  'grid',
   'raymarching',
   'raymarching-orbit',
   'raymarching-scene',
-  'dotted-shift'
+  'dotted-shift',
+  // 'raymarching-fractal',
 ]
 
 export default function Page() {
